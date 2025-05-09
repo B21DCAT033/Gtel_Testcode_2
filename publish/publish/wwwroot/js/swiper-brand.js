@@ -1,0 +1,1 @@
+new Swiper(".brand-active",{slidesPerView:3,autoplay:{delay:5e3},loop:!0,spaceBetween:35,breakpoints:{768:{slidesPerView:3},992:{slidesPerView:4},1200:{slidesPerView:5}}}),new Swiper(".brand-active-bottom",{slidesPerView:3,autoplay:{delay:5e3,reverseDirection:!0},loop:!0,spaceBetween:35,breakpoints:{768:{slidesPerView:3},992:{slidesPerView:4},1200:{slidesPerView:5}}});

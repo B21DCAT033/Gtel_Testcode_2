@@ -1,0 +1,121 @@
+﻿.search-panel-section {
+    margin-top: var(--header-height);
+}
+
+.search-panel-section .cta-wrap {
+    border-radius: 10px;
+    margin-top: 40px;
+    padding: 2rem;
+}
+
+.search-form {
+    position: relative;
+}
+
+    .search-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+        color: #484848;
+        border: 1px solid #ced4da;
+        outline: none;
+        font-weight: 700;
+        height: 40px;
+        margin-bottom: 0;
+        padding: 0.375rem 0.75rem;
+        flex-grow: 1;
+    }
+
+        .search-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="file"])::-webkit-input-placeholder {
+            color: #898c94;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .search-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):-moz-placeholder {
+            color: #898c94;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .search-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="file"])::-moz-placeholder {
+            color: #898c94;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .search-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):-ms-input-placeholder {
+            color: #898c94;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+    .search-form .button-suffix {
+        position: absolute;
+        top: 50%;
+        transform: translateX(-12px) translateY(-50%);
+        right: 0;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 0;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #111111;
+        transition: all 0.3s linear;
+    }
+
+        .search-form .button-suffix:hover {
+            background: #c92435;
+            color: #ffffff;
+        }
+
+    .search-form select {
+        color: #484848;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 30px;
+        height: 40px;
+    }
+
+.single-blog .blog-content .blog-meta span.tag {
+    color: #00aeef;
+    font-size: 14px;
+}
+
+.single-blog .blog-content .title {
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.single-blog .blog-content .blog-btn {
+    text-align: right;
+}
+
+.single-blog .blog-content .blog-btn .blog-btn-link {
+    font-size: 12px;
+}
+
+.single-blog .blog-content .blog-btn .blog-btn-link:hover {
+    color: #c92435;
+}
+
+@media only screen and (max-width: 575.98px) {
+    .single-blog .blog-content {
+        width: 100%;
+        margin-top: 0;
+        padding: 16px 0;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .single-blog .blog-content {
+        min-height: 208px;
+        padding: 20px 30px;
+    }
+
+    .single-blog .blog-content .title {
+        height: 90px;
+    }
+}

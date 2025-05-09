@@ -1,0 +1,74 @@
+﻿@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<VideoNews>
+
+@{
+    Layout = "masterPage.cshtml";
+}
+
+@{
+    var videoNews_management = Umbraco.Content("397408e8-3302-4ed3-a156-010bad765265");
+
+    var latest_videoNews = videoNews_management?.ChildrenOfType("videoNews")?
+        .OrderByDescending(x => x.UpdateDate)
+        .Take(3);
+}
+
+<!-- Page Banner Start -->
+<input type="hidden" id="hdVideoNewsManagementKey" value="@videoNews_management?.Key" />
+<input type="hidden" id="hdMainVideoNewsKey" value="@Model.Key" />
+
+<div class="section featured-news py-5" style="background-image: url(/gtel_modern/images/bg/hero-bg6.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <video controls data-setup='{}'
+                       class="video-js vjs-tech vjs-default-skin vjs-16-9 top-video w-100"
+                       src="@Model.Video?.MediaUrl()"
+                       poster="@Model.Avatar?.MediaUrl()">
+                </video>
+            </div>
+            <div class="col-12 news-title text-white wow animate__slideInRight">
+                @Model.Title
+            </div>
+            <div class="col-12 news-description text-white wow animate__slideInLeft">
+                @Model.Description
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Banner End -->
+<!-- Blog Start -->
+<div class="section techwix-blog-grid-section section-padding">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="sidebar-widget sidebar-widget-1">
+                    <!-- Widget Search Form Start -->
+                    <form class="search-form">
+                        <input type="text" id="txtKeyword" placeholder="@Umbraco.GetDictionaryValue("TuKhoa")">
+                        <button type="button" id="btnSearch"><i class="fas fa-search"></i></button>
+                    </form>
+                    <!-- Widget Search Form End -->
+                </div>
+            </div>
+        </div>
+
+        <div class="techwix-blog-grid-wrap">
+            <div class="row techwix-blog-grid-wrap-row">
+            </div>
+            <!-- Page Pagination Start -->
+            <div class="techwix-pagination d-none d-lg-flex justify-content-center">
+                <button type="button" id="loadMoreButton" class="btn btn-4">@Umbraco.GetDictionaryValue("XemThem")</button>
+            </div>
+            <div class="techwix-pagination d-flex d-lg-none justify-content-center">
+                <button type="button" id="loadMoreButtonMobile" class="btn btn-2">@Umbraco.GetDictionaryValue("XemThem")</button>
+            </div>
+            <!-- Page Pagination End -->
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+@section Scripts {
+    <script type="module" src="/js/videoNewsDetailPage.gtel.portal.js"></script>
+}

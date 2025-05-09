@@ -1,0 +1,569 @@
+﻿@using System.Globalization
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<AboutGtelPage>
+@{
+    Layout = "masterPage.cshtml";
+    var enUsCulture = CultureInfo.GetCultureInfo("en-US");
+}
+
+@section Styles {
+<link rel="stylesheet" href="/css/about-gtel-page.css">
+}
+
+<!-- Banner Start -->
+<div class="section techwix-hero-section-03 gtel-banner-section d-flex align-items-center"
+style="background-image: url('@(Model.BackgroundImage?.MediaUrl() ?? "/images/gioi-thieu/banner-gt.jpg")')">
+    <div class="container container-mix">
+        <div class="hero-content">
+            <h2 class="title wow fadeInRight">@Model.BannerTitle</h2>
+            <h3 class="subtitle wow fadeInRight">@Model.BannerSubtitle</h3>
+            <div class="d-flex justify-content-center justify-content-lg-start mt-3">
+                <div class="content">
+                    @if (Model.BannerDescription != null && Model.BannerDescription.Count() > 0)
+                    {
+                        var index = 0;
+                        @foreach (var desc in Model.BannerDescription)
+                        {
+                            index++;
+                            var timeDalay = (index * 0.6).ToString("N1", enUsCulture);
+                            var parts = desc.Split(new[] { ':' }, 2);
+                            @if (parts.Length > 1)
+                            {
+                                @:<span class="wow fadeInUp" data-wow-delay="@(timeDalay)s">@parts[0]:<strong>@parts[1]</strong></span><br />
+                            }
+                            else
+                            {
+                                <span class="wow fadeInUp" data-wow-delay="@(timeDalay)s">@desc</span>
+                                <br />
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+<!-- Story Start -->
+@{
+    var storyBlockList = Model.Value<IEnumerable<BlockListItem>>("brandStory");
+    var introductionBlock = storyBlockList?.Where(x => x.Content.ContentType.Alias == IntroductionBlock.ModelTypeAlias).FirstOrDefault();
+    var introductionBlock_content = (IntroductionBlock)introductionBlock?.Content;
+    var cardBlocks = storyBlockList?.Where(x => x.Content.ContentType.Alias == CardBlock.ModelTypeAlias).ToList();
+    var giaTriCotLoiBlock = storyBlockList?.Where(x => x.Content.ContentType.Alias == ListBlock.ModelTypeAlias).FirstOrDefault();
+    var giaTriCotLoiBlock_content = (ListBlock)giaTriCotLoiBlock?.Content;
+    var giaTriCotLoiBlock_items = giaTriCotLoiBlock_content?.Value<IEnumerable<BlockListItem>>("childItem");
+}
+<div class="section techwix-about-section-04 section-padding">
+    <div class="container cau-chuyen-thuong-hieu">
+        <h2 class="text-uppercase text-center">@introductionBlock_content?.Title</h2>
+        <p class="wow fadeIn">@introductionBlock_content?.Description</p>
+    </div>
+
+    <div class="container tam-nhin-va-su-menh tam-nhin-va-su-menh-container">
+        <div class="row">
+            @if (cardBlocks != null && cardBlocks.Count() > 0)
+            {
+                @foreach (var cardBlock in cardBlocks)
+                {
+                    var cardBlock_content = (CardBlock)cardBlock.Content;
+                    <div class="col-lg mb-4 wow fadeIn tam-nhin-va-su-menh-content">
+                        <div class="column-img text-center">
+                            <img src="@cardBlock_content.Avatar?.MediaUrl()" alt="">
+                        </div>
+                        <div class="column-title text-center">
+                            <span class="button-red control-rubberBand-hover">@cardBlock_content.Title</span>
+                        </div>
+                        <div class="column-text mx-0 mx-md-20 mx-lg-0 line-clamp-4">
+                            @cardBlock_content.Description
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="container gia-tri-cot-loi tam-nhin-va-su-menh-container">
+        <h2 class="gia-tri-cot-loi-header">@giaTriCotLoiBlock_content?.Title</h2>
+        <div class="gia-tri-cot-loi-body">
+            @if (giaTriCotLoiBlock_items != null && giaTriCotLoiBlock_items.Count() > 0)
+            {
+                var index = 0;
+                foreach (var item in giaTriCotLoiBlock_items)
+                {
+                    index++;
+                    var item_content = (ListItemBlock)item.Content;
+                    var timeDelay = (index * 0.2).ToString("N1", enUsCulture);
+
+                    <div class="gia-tri-cot-loi-block wow fadeIn" data-wow-delay="@(timeDelay)s">
+                        <div class="corner"></div>
+                        <div class="gia-tri-cot-loi-item-body">
+                            <div class="gia-tri-cot-loi-item-img">
+                                <img src="@item_content.Icon?.MediaUrl()" alt="">
+                            </div>
+                            <div class="gia-tri-cot-loi-item-content">
+                                <h2 class="gia-tri-cot-loi-item-content-label">@item_content.Title</h2>
+                                <p class="gia-tri-cot-loi-item-content-des">@item_content.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</div>
+<!-- Story End -->
+
+<!-- History Start -->
+@{
+    var developmentHistories = Model.Value<IEnumerable<BlockListItem>>("developmentHistoryV2");
+}
+
+<div class="section techwix-choose-us-section section-padding d-none d-lg-block"
+style="background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(235, 242, 250, 0.6));">
+    <div class="container">
+        <div class="choose-us-wrap">
+            <h2 class="text-uppercase text-center">@Umbraco.GetDictionaryValue("LichSuPhatTrien")</h2>
+            <div class="choose-us-content-wrap">
+                @if (developmentHistories != null && developmentHistories.Any())
+                {
+                    var yearMilestones = developmentHistories.Select(x => (HistoryBlock)x.Content).Select(x => x.Title).ToList();
+                    <input type="hidden" id="hdMilestones" value="@string.Join(',', yearMilestones)" />
+                    <div class="history-timeline wow fadeInUp">
+                        <div class="horizontal-line"></div>
+                        <div class="milestone-wrapper color-main-red">
+                            <div class="milestone-group-left"></div>
+                            <div class="milestone-group-middle d-flex">
+                                <span id="prevBtn" class="btn-arrow-left"></span>
+                                <img src="/images/logo-with-no-arrow-1.png" style="width: 100px; max-width: unset;" alt="GTEL logo with arrow">
+                                <span id="nextBtn" class="btn-arrow-right"></span>
+                            </div>
+                            <div class="milestone-group-right"></div>
+                        </div>
+                    </div>
+
+                    <div class="history-content mt-4">
+                        @foreach (var historyBlock in developmentHistories)
+                        {
+                            var historyBlock_content = (HistoryBlock)historyBlock.Content;
+                            var detailedHistoryBlocks = historyBlock_content.DetailedHistory;
+                            <div class="history-slide d-none wow fadeIn h-@(historyBlock_content.Title)">
+                                <div class="swiper swiper-history-block">
+                                    <div class="swiper-wrapper">
+                                        @if (detailedHistoryBlocks != null && detailedHistoryBlocks.Any())
+                                        {
+                                            @foreach (var item in detailedHistoryBlocks)
+                                            {
+                                                var content = (DetailedHistoryBlock)item.Content;
+                                                <div class="swiper-slide history-swiper-slide">
+                                                    <div class="history-slide-img"><img src="@content?.Image?.MediaUrl()" alt=""></div>
+                                                    <div class="history-slide-text text-center">@content?.Description</div>
+                                                </div>
+                                            }
+                                        }                                        
+                                    </div>
+                                </div>
+                                <div class="swiper-milestone-button-prev swiper-button-display">
+                                    <svg width="36" height="36" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M28 55C13.0883 55 1 42.9117 1 28C1 13.0883 13.0883 1 28 1C42.9117 1 55 13.0883 55 28C55 42.9117 42.9117 55 28 55Z"
+                                              fill="black" fill-opacity="0.15" stroke="white" stroke-opacity="0.6" stroke-width="2"
+                                              stroke-miterlimit="10"></path>
+                                        <path d="M31.375 17.875L20.125 28L31.375 38.125" stroke="white" stroke-opacity="0.8" stroke-width="2.2"
+                                              stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                                <div class="swiper-milestone-button-next swiper-button-display">
+                                    <svg width="36" height="36" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M28 55C42.9117 55 55 42.9117 55 28C55 13.0883 42.9117 1 28 1C13.0883 1 1 13.0883 1 28C1 42.9117 13.0883 55 28 55Z"
+                                              fill="black" fill-opacity="0.15" stroke="white" stroke-opacity="0.6" stroke-width="2"
+                                              stroke-miterlimit="10"></path>
+                                        <path d="M24.625 17.875L35.875 28L24.625 38.125" stroke="white" stroke-opacity="0.8" stroke-width="2.2"
+                                              stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section bg-cover techwix-testimonial-section-02 techwix-testimonial-section-03 section-padding d-lg-none"
+     style="background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/images/bg/choose-us-bg3.jpg')">
+    <div class="container">
+        <div class="testimonial-wrap-02">
+            <h2 class="text-uppercase text-center">@Umbraco.GetDictionaryValue("LichSuPhatTrien")</h2>
+            <div class="testimonial-content-wrap-02">
+                <div class="testimonial-02-active" style="overflow: hidden">
+                    <div class="swiper-wrapper">
+                        @foreach (var historyBlock in developmentHistories)
+                        {
+                            var historyBlock_content = (HistoryBlock)historyBlock.Content;
+                            var detailedHistoryBlocks = historyBlock_content.DetailedHistory;
+                            if (detailedHistoryBlocks != null && detailedHistoryBlocks.Count > 0)
+                            {
+                                foreach (var item in detailedHistoryBlocks)
+                                {
+                                    var content = (DetailedHistoryBlock)item.Content;
+                                    <div class="swiper-slide">
+                                        <div class="history-card">
+                                            <div class="timeline-line"></div>
+                                            <div class="history-card-header">
+                                                <h4 class="text-white">@historyBlock_content.Title</h4>
+                                            </div>
+                                            <div class="history-card-body">
+                                                <img class="history-image" src="@content?.Image?.MediaUrl()" alt="">
+                                            </div>
+                                            <div class="history-card-footer">
+                                                <p class="history-description line-clamp-3">@content?.Description</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- History End -->
+<!-- doi ngu lanh dao  -->
+@* @{
+    var leaderships = Model.Value<IEnumerable<BlockListItem>>("leadershipTeam");
+}
+@if (leaderships != null && leaderships.Count() > 0)
+{
+    var president = leaderships.First();
+    var president_content = (LeadershipBlock)president.Content;
+    @if (president_content != null)
+    {
+        <div class="section techwix-about-section-07 section-padding">
+            <h2 class="text-uppercase text-center d-block d-md-none">@Umbraco.GetDictionaryValue("DoiNguLanhDao")</h2>
+            <div class="container doi-ngu-lanh-dao mt-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- About Image Wrap Start -->
+                        <div class="about-img-wrap float-xl-end wow fadeIn">
+                            <img class="shape-1" src="/images/shape/about-shape2.png" alt="">
+                            <div class="ld-img-1">
+                                <img src="@president_content.Avatar?.MediaUrl()" alt="">
+                            </div>
+                        </div>
+                        <!-- About Image Wrap End -->
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- About Content Wrap Start -->
+                        <div class="about-content-wrap wow fadeInRight">
+                            <h2 class="text-uppercase mb-5 d-none d-md-block">@Umbraco.GetDictionaryValue("DoiNguLanhDao")</h2>
+                            <div class="sub-title text-uppercase">@president_content?.JobTitle</div>
+                            <div class="sub-title">@($"{president_content?.Salutation} {president_content?.FullName}")</div>
+                            <div class="sub-title">@Umbraco.GetDictionaryValue("SinhNam"): @president_content?.YearOfBirth</div>
+                            @if (president_content?.ProfessionalExperience != null && president_content.ProfessionalExperience.Count() > 0)
+                            {
+                                <div class="sub-title">@Umbraco.GetDictionaryValue("QuaTrinhCongTac"):</div>
+                                <!-- About List Start -->
+                                <div class="about-list">
+                                    <ul>
+                                        @foreach (var exp in president_content.ProfessionalExperience)
+                                        {
+                                            <li>
+                                                <span class="about-icon">
+                                                    <i class="fas fa-check"></i>
+                                                </span>
+                                                @exp
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <!-- About List End -->
+                            }
+                        </div>
+                        <!-- About Content Wrap End -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    @{
+                        var index = 0;
+                    }
+                    @foreach(var vice_president in leaderships.Skip(1))
+                    {
+                        var vice_president_content = (LeadershipBlock)vice_president?.Content;
+                        <div class="col-lg-6 wow fadeIn">
+                            <div class="ld-img @(index % 2 == 0 ? "float-xl-end ld-img-left" : "ld-img-right")">
+                                <img src="@vice_president_content?.Avatar?.MediaUrl()" alt="">
+                            </div>
+                            <div class="ld-content @(index % 2 == 0 ? "float-xl-end" : "")">
+                                <div class="sub-title text-uppercase">@vice_president_content?.JobTitle</div>
+                                <div class="sub-title">@($"{vice_president_content?.Salutation} {vice_president_content?.FullName}")</div>
+                                <div class="sub-title">@Umbraco.GetDictionaryValue("SinhNam"): @vice_president_content?.YearOfBirth</div>
+                                @if (vice_president_content?.ProfessionalExperience != null && vice_president_content?.ProfessionalExperience?.Count() > 0)
+                                {
+                                    <div class="sub-title">@Umbraco.GetDictionaryValue("QuaTrinhCongTac"):</div>
+                                    <!-- About List Start -->
+                                    <div class="about-list">
+                                        <ul>
+                                            @foreach (var exp in vice_president_content.ProfessionalExperience)
+                                            {
+                                                <li>
+                                                    <i class="fas fa-check"></i>
+                                                    @exp
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <!-- About List End -->
+                                }
+                            </div>
+                        </div>
+                        index++;
+                    }
+                </div>
+            </div>
+        </div>
+    }
+} *@
+
+<!-- nguon luc -->
+@{
+    var resources = Model.Value<IEnumerable<BlockListItem>>("resources");
+}
+@if (resources != null && resources.Count() > 0)
+{
+    <div class="section techwix-service-section section-padding nguonluc-section"
+         style="background-image: url(/images/gioi-thieu/hero-bg1.png); background-repeat: no-repeat; background-size: cover;">
+        <div class="container">
+            <!-- Service Wrap Start -->
+            <div class="service-wrap">
+                <h2 class="text-uppercase text-center">@Umbraco.GetDictionaryValue("NguonLucCuaGtel")</h2>
+                <div class="service-content-wrap">
+                    <div class="row justify-content-center">
+                        @if (resources != null && resources.Count() > 0)
+                        {
+                            var indexService = 0;
+                            foreach (var resource in resources)
+                            {
+                                indexService++;
+                                var timeService = (indexService * 0.3).ToString("N1", enUsCulture);
+                                var resource_content = (ResourceBlock)resource.Content;
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <!-- Service Item Start -->
+                                    <div class="service-item service-01 text-center wow fadeIn" data-wow-delay="@(timeService)s">
+                                        <div class="corner"></div>
+                                        <div class="service-item-body">
+                                            <div class="service-img">
+                                                <img src="@resource_content.Icon?.MediaUrl()" alt="">
+                                            </div>
+                                            <div class="service-content">
+                                                <h2 class="title">@resource_content.Title</h2>
+                                                <p style="white-space: pre-line;">@resource_content.Description</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Service Item End -->
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Service Wrap End -->
+        </div>
+    </div>
+}
+
+<!-- Member Company Start -->
+@{
+    var memberCompanies = Model.Value<IEnumerable<IPublishedContent>>("memberCompany");
+}
+@if (memberCompanies != null && memberCompanies.Any())
+{
+    var index = 0;
+    <div class="section techwix-testimonial-section-02 techwix-testimonial-section-03 cong-ty-thanh-vien-section section-padding">
+        <div class="container">
+            <h2 class="text-uppercase text-center">@Umbraco.GetDictionaryValue("CongTyThanhVien")</h2>
+            <div class="row ps-md-4 ps-lg-3 ps-xl-4 ps-xxl-0">
+                @foreach (var member in memberCompanies)
+                {
+                    var avatar = member.Value<MediaWithCrops>("avatar");
+                    var linkWeb = member.Value<Link>("link")?.Url ?? "javascript:;";
+                    <div class="col-12 col-lg-6 mt-4 @(index % 2 == 0 ? "pe-lg-5" : "ps-lg-5")">
+                        <div class="single-testimonial-02 wow control-fadeIn">
+                            <div class="testimonial-thumb d-none d-md-block">
+                                <div class="thumb-neumorphism d-flex align-items-center">
+                                    <img alt="" src="@avatar?.MediaUrl()" width="120" />
+                                </div>
+                            </div>
+                            <div class="testimonial-thumb-mobile d-md-none text-center">
+                                <img alt="" src="@avatar?.MediaUrl()" style="" width="120" />
+                            </div>
+                            <div class="testimonial-content">
+                                <h4 class="company-name line-clamp-3">@member.Value("title")</h4>
+                                <div class="company-description my-3 line-clamp-3" title="@member.Value("description")">@member.Value("description")</div>
+                                <div class="learn-more text-end">
+                                    <a href="@linkWeb">
+                                        <u>@Umbraco.GetDictionaryValue("TimHieuThem")</u>
+                                        <i class="fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    index++;
+                }
+            </div>
+        </div>
+    </div>
+}
+<!-- Member Company End -->
+<!-- Corporate Culture Start -->
+@{
+    var corporateCultureBlock = Model.Value<IEnumerable<BlockListItem>>("corporateCulture")?.FirstOrDefault();
+    var corporateCulture_content = (CorporateCultureBlock)corporateCultureBlock?.Content;
+}
+<div class="section techwix-about-section-04 section-padding">
+    <div class="container van-hoa-doanh-nghiep">
+        <!-- About Wrapper Start -->
+        <div class="about-wrap">
+            <div class="row row-lg-reverse ps-3">
+                <div class="col-lg-6 order-lg-2 pb-5">
+                    <!-- About Content Wrap Start -->
+                    <div class="about-content-wrap wow fadeInUp">
+                        <h2 class="text-uppercase">@corporateCulture_content?.Title</h2>
+                        <p class="text">@corporateCulture_content?.Description</p>
+                        <div class="learn-more text-end mt-2">
+                            <a href="/ve-gtel/van-hoa-doanh-nghiep/">
+                                <u>@Umbraco.GetDictionaryValue("TimHieuThem")</u>
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- About Content Wrap End -->
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <!-- About Image Wrap Start -->
+                    <div class="about-img-wrap wow fadeInUp">
+                        <div class="about-img about-img-big">
+                            <img src="@corporateCulture_content?.Avatar?.MediaUrl()" alt="">
+                        </div>
+                        <div class="about-img about-img-sm">
+                            <img src="@corporateCulture_content?.SecondaryAvatar?.MediaUrl()" alt="">
+                        </div>
+                    </div>
+                    <!-- About Image Wrap End -->
+                </div>
+            </div>
+        </div>
+        <!-- About Wrapper End -->
+    </div>
+</div>
+<!-- Corporate Culture End -->
+@section Scripts {
+    <script>
+        const yearMilestones = document.getElementById("hdMilestones").value.split(',');
+        var startIndex = 0;
+        const totalMilestones = yearMilestones.length;
+        const maxDisplay = 6;
+        const halfDisplay = maxDisplay / 2;
+
+        const leftContainer = document.querySelector('.milestone-group-left');
+        const rightContainer = document.querySelector('.milestone-group-right');
+
+        function updateVisible() {
+            if (startIndex < 0) startIndex = 0;
+            if (startIndex > totalMilestones - maxDisplay)
+                startIndex = Math.max(0, totalMilestones - maxDisplay);
+
+            var currentDisplay = yearMilestones.slice(startIndex, startIndex + maxDisplay);
+            var left = currentDisplay.slice(0, halfDisplay);
+            var right = currentDisplay.slice(halfDisplay);
+
+            leftContainer.innerHTML = '';
+            rightContainer.innerHTML = '';
+
+            for (let i = 0; i < left.length; i++) {
+                const milestone = document.createElement('div');
+                milestone.className = 'milestone';
+                milestone.setAttribute('data-year', left[i]);
+
+                const span = document.createElement('span');
+                span.className = 'milestone-year';
+                span.innerText = left[i];
+
+                milestone.appendChild(span);
+                leftContainer.appendChild(milestone);
+            }
+
+            for (let i = 0; i < right.length; i++) {
+                const milestone = document.createElement('div');
+                milestone.className = 'milestone';
+                milestone.setAttribute('data-year', right[i]);
+
+                const span = document.createElement('span');
+                span.className = 'milestone-year';
+                span.innerText = right[i];
+
+                milestone.appendChild(span);
+                rightContainer.appendChild(milestone);
+            }
+
+            $('.milestone').click(function () {
+                $('.milestone.active').removeClass('active');
+                $(this).addClass('active');
+
+                $('.history-slide').addClass('d-none');
+
+                var year = $(this).attr('data-year');
+                var content = $('.history-slide.h-' + year);
+                content.removeClass('d-none');
+                wow.show(content[0]);
+
+                const swiper = new Swiper('.history-slide:not(.d-none) .swiper-history-block', {
+                    slidesPerView: 1,
+                    autoplay: {
+                        delay: 10000,
+                        disableOnInteraction: false,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-milestone-button-next',
+                        prevEl: '.swiper-milestone-button-prev',
+                    },
+                    loop: false
+                });
+
+                const containerSlide = document.querySelector('.history-slide:not(.d-none)');
+                if (containerSlide) {
+                    const totalSlides = containerSlide.querySelectorAll('.history-swiper-slide').length;
+                    if (totalSlides <= 1) {
+                        document.querySelector('.history-slide:not(.d-none) .swiper-milestone-button-next').style.display = 'none';
+                        document.querySelector('.history-slide:not(.d-none) .swiper-milestone-button-prev').style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            startIndex--;
+            updateVisible();
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            startIndex++;
+            updateVisible();
+        });
+
+        $().ready(function() {
+            updateVisible();
+            $('.milestone')[0].click();
+        });
+    </script>
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Gtel portal Comment Management",
+  "extensions": [
+    {
+      "type": "bundle",
+      "alias": "GtelPortal.Bundle.CommentManagement",
+      "name": "GtelPortal Comment Management Bundle",
+      "js": "/App_Plugins/Comments/manifests.js"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<SearchPage>
+@{
+    Layout = "masterPage.cshtml";
+
+    var news_management = Umbraco.Content("a8263626-bf82-4bd5-ad68-482843dd8d23");
+    var categories_management = Umbraco.Content("715c9f0e-f06f-4ba8-9130-5c67cc144cd1");
+    var categories = categories_management?.ChildrenOfType("category");
+}
+
+@section Styles {
+    <link href="/css/global-search-page.css" rel="stylesheet">
+}
+
+<!-- Search Panel Start -->
+<div class="section search-panel-section">
+    <div class="container">
+        <div class="cta-wrap wow fadeInDown" style="background-image: url('/gtel_modern/images/bg/service-bg6.jpg')">
+            <form class="search-form" method="post">
+                <div class="row">
+                    <div class="col-12 position-relative">
+                        <input type="text" id="txtKeyword" placeholder="@Umbraco.GetDictionaryValue("TuKhoa")">
+                        <button id="btnSearch" type="button" class="button-suffix">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="col-12 col-lg-4 mt-3">
+                        <select id="slCategory" class="form-control">
+                            <option value="" selected>@Umbraco.GetDictionaryValue("ChonChuyenMuc")</option>
+                            @if (categories != null && categories.Any())
+                            {
+                                @foreach (var category in categories)
+                                {
+                                    <option value="@category.Key">@category.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mt-3">
+                        <div class="input-group flex-nowrap">
+                            <input id="fromdatepicker" type="text" class="datepicker hasDatepicker w-auto" placeholder="@Umbraco.GetDictionaryValue("TuNgay")" autocomplete="off">
+                            <span class="input-group-text">
+                                <object type="image/svg+xml" data="/images/icons/calendar.svg"></object>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mt-3">
+                        <div class="input-group flex-nowrap">
+                            <input id="todatepicker" type="text" class="datepicker hasDatepicker w-auto" placeholder="@Umbraco.GetDictionaryValue("DenNgay")" autocomplete="off">
+                            <span class="input-group-text">
+                                <object type="image/svg+xml" data="/images/icons/calendar.svg"></object>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Search Panel End -->
+
+<!-- Search Result Start -->
+<div class="section techwix-blog-grid-section section-padding">
+    <div class="container">
+        <div class="techwix-blog-grid-wrap wow fadeInUp">
+            <div class="row techwix-blog-grid-wrap-row">
+            </div>
+            <div class="techwix-pagination d-none d-lg-flex justify-content-center">
+                <button type="button" id="loadMoreButton" class="btn btn-4">@Umbraco.GetDictionaryValue("XemThem")</button>
+            </div>
+            <div class="techwix-pagination d-flex d-lg-none justify-content-center">
+                <button type="button" id="loadMoreButtonMobile" class="btn btn-2">@Umbraco.GetDictionaryValue("XemThem")</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search Result End -->
+
+@section Scripts {
+    <script type="module" src="/js/searchPage.gtel.portal.js"></script>
+}

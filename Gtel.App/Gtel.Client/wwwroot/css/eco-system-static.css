@@ -1,0 +1,858 @@
+﻿:root {
+    --base_offset: 100px;
+    --offset_increment: 90px;
+}
+
+.solar-system {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transform: rotateX(40deg);
+}
+
+/* Logo trung tâm */
+.center-logo {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    /* background: #e1e1e1; */
+    background: #fff;
+    border-radius: 50%;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    transform-origin: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.center-logo img {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+    position: relative;
+    transform: rotateY(0deg);
+}
+
+/* Tạo đốm lửa và thiết lập hiệu ứng */
+.flare {
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background-color: rgba(200, 200, 200, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(180, 180, 180, 0.8), 0 0 20px rgba(160, 160, 160, 0.6);
+    animation: flare-move 5s linear infinite;
+    opacity: 0.6;
+}
+
+/* Đặt các chấm sáng ở các vị trí khác nhau */
+.flare:nth-child(2) {
+    top: 20%;
+    animation-duration: 4s;
+}
+
+.flare:nth-child(3) {
+    top: 80%;
+    animation-duration: 6s;
+}
+
+/* Các quỹ đạo */
+.orbit {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed #fff;
+    opacity: 0.5;
+}
+
+.orbit:nth-child(2) {
+    width: 200px;
+    height: 200px;
+}
+
+.orbit:nth-child(3) {
+    width: 300px;
+    height: 300px;
+}
+
+.orbit:nth-child(4) {
+    width: 400px;
+    height: 400px;
+}
+
+.orbit:nth-child(5) {
+    width: 500px;
+    height: 500px;
+}
+
+.orbit:nth-child(6) {
+    width: 600px;
+    height: 600px;
+}
+
+/* Container cho planet */
+.planet-orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+    animation-play-state: running;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+}
+
+.planet-orbit {
+    --base-angle: 0deg;
+    --offset: 0px;
+    animation: orbitWave 40s ease-in-out infinite;
+}
+
+@keyframes orbitWave {
+    0% {
+        transform: rotate(calc(var(--base-angle) + 0deg)) translate(var(--offset)) rotate(calc(-1 * (var(--base-angle) + 0deg)));
+    }
+    25% {
+        transform: rotate(calc(var(--base-angle) + 5deg)) translate(var(--offset)) rotate(calc(-1 * (var(--base-angle) + 5deg)));
+    }
+    75% {
+        transform: rotate(calc(var(--base-angle) - 5deg)) translate(var(--offset)) rotate(calc(-1 * (var(--base-angle) - 5deg)));
+    }
+    100% {
+        transform: rotate(calc(var(--base-angle) + 0deg)) translate(var(--offset)) rotate(calc(-1 * (var(--base-angle) + 0deg)));
+    }
+}
+
+/* Container cho dot và label */
+.planet-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    animation-play-state: running;
+    transition: all 0.3s ease;
+}
+
+/* Chấm nhỏ */
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #E1E1E1;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+    position: absolute;
+    left: 0;
+    transform: translateX(-50%);
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+/* Vòng tròn thứ nhất */
+.dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 0.5px solid rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    animation: cycle-expand 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+}
+
+/* Vòng tròn thứ hai */
+.dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 0.5px solid rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    animation: cycle-expand 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: 1.5s;
+    pointer-events: none;
+}
+
+/* Hiệu ứng active và wave */
+.dot.active {
+    background: var(--wave-color, #ff4757);
+    box-shadow: 0 0 8px var(--wave-color, rgba(255, 71, 87, 0.4));
+    animation: smoothPulse 1.5s ease infinite;
+}
+
+.dot.wave::before,
+.dot.wave::after {
+    animation: smoothWave 2.5s ease-out forwards;
+    border-color: var(--wave-color, rgba(255, 71, 87, 0.6));
+}
+
+.dot.wave::after {
+    animation-delay: 0.5s;
+}
+
+/* Label cho planet */
+.planet-label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    white-space: nowrap;
+    margin-left: 0;
+    width: 115px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.planet-label img {
+    width: 100px;
+    -webkit-filter: 
+        drop-shadow(1px 0 0 white)
+        drop-shadow(-1px 0 0 white)
+        drop-shadow(0 1px 0 white)
+        drop-shadow(0 -1px 0 white);
+    filter: 
+        drop-shadow(1px 0 0 white)
+        drop-shadow(-1px 0 0 white)
+        drop-shadow(0 1px 0 white)
+        drop-shadow(0 -1px 0 white);
+}
+
+/* New tooltip styles */
+.tooltip {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    /* background-color: rgb(201, 36, 53, 0.9); */
+    background-color: #2AA7DF;
+    background-image: url('/images/our-solution-item-white.png');
+    background-size: contain;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 12;
+    width: 240px;
+    transition: opacity 0.3s ease;
+}
+
+.tooltip .profile {
+    pointer-events: none;
+}
+
+.tooltip-show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.scale-up > img {
+    transform: scale(1.3);
+    transition: transform 0.3s ease-in-out;
+    -webkit-filter:none;
+    filter: none;
+}
+
+.scale-up > img[alt="GTEL POST"] {
+    -webkit-filter: 
+        drop-shadow(1px 0 0 white)
+        drop-shadow(-1px 0 0 white)
+        drop-shadow(0 1px 0 white)
+        drop-shadow(0 -1px 0 white);
+    filter: 
+        drop-shadow(1px 0 0 white)
+        drop-shadow(-1px 0 0 white)
+        drop-shadow(0 1px 0 white)
+        drop-shadow(0 -1px 0 white);
+}
+
+.profile {
+    color: #fff;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.img {
+    width: 40px;
+    height: 40px;
+    background: #8899A6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-weight: bold;
+}
+
+.details {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+}
+
+.icon-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.link-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* background: #00b1f4; */
+    background-color: rgb(201, 36, 53, 0.8);
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    transition: width 0.3s ease-in-out;
+}
+
+.link-button i {
+    padding: 9px;
+    flex-shrink: 0;
+    order: 0;
+}
+
+.button-text {
+    white-space: nowrap;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    transition-delay: 0.1s;
+}
+
+.link-button:hover {
+    width: 95px;
+    color: #fff;
+    justify-content: flex-start;
+}
+
+.link-button:hover .button-text {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.name {
+    font-weight: 600;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.username {
+    color: #fff;
+    font-size: 0.9em;
+}
+
+.about {
+    color: #fff;
+    font-size: 0.9em;
+}
+
+.blurred {
+    opacity: 0.1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.blurred .dot {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Effect Hover */
+.planet-container:hover .dot {
+    background: #484848;
+}
+
+.planet-container:hover {
+    animation-play-state: paused;
+}
+
+.planet-container:hover .profile,
+.planet-container:hover .username,
+.planet-container:hover .img,
+.planet-container:hover .about {
+    color: #fff;
+}
+
+/* --------------- MEDIA RESPONSIVE --------------- */
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .center-logo {
+        width: 140px;
+        height: 140px;
+    }
+
+    .center-logo img {
+        width: 90%;
+        top: -5px;
+    }
+
+    .planet-label img {
+        width: 100px;
+    }
+
+    .planet-label img[alt="GTSC"] {
+        width: 80px;
+    }
+
+    .planet-label img[alt="PVF"] {
+        width: 90px;
+    }
+
+    .planet-label img[alt="GTEL ICT"] {
+        width: 115px;
+    }
+
+    .planet-label img[alt="GTEL TIS"] {
+        width: 115px;
+    }
+
+    .planet-label img[alt="GTEL POST"] {
+        width: 115px;
+    }
+
+    .planet-container-top-left .planet-label {
+        transform: translate(40px, -40px);
+    }
+
+    .planet-orbit-0 .planet-container-top-left .planet-label {
+        transform: translate(-15px, -40px);
+    }
+
+    .planet-container-top-center .planet-label {
+        transform: translate(33px, -23px);
+    }
+
+    .planet-container-top-right .planet-label {
+        transform: translate(55px, -20px);
+    }
+
+    .planet-container-bottom-left .planet-label {
+        transform: translate(-32px, 30px);
+    }
+
+    .planet-container-bottom-center .planet-label {
+        transform: translate(-5px, 17px);
+    }
+
+    .planet-container-bottom-right .planet-label {
+        transform: translate(23px, 26px);
+    }
+
+    .planet-container-top-left .tooltip {
+        transform: translate(130px, 73px);
+    }
+
+    .planet-orbit-0 .planet-container-top-left .tooltip {
+        transform: translate(135px, -110px);
+    }
+
+    .planet-container-top-center .tooltip {
+        transform: translate(0, 100px);
+    }
+
+    .planet-container-top-right .tooltip {
+        transform: translate(0px, 108px);
+    }
+
+    .planet-container-bottom-left .tooltip {
+        transform: translate(10px, -100px);
+    }
+
+    .planet-container-bottom-center .tooltip {
+        transform: translate(0px, -98px);
+    }
+
+    .planet-container-bottom-right .tooltip {
+        transform: translate(0px, -80px);
+    }
+
+    .planet-orbit-0 .planet-container-bottom-right .tooltip {
+        transform: translate(0px, -90px);
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .orbit:nth-child(2) {
+        width: calc(var(--base_offset) + 2 * var(--offset_increment));
+        height: calc(var(--base_offset) + 2 * var(--offset_increment));
+    }
+
+    .orbit:nth-child(3) {
+        width: calc(var(--base_offset) + 4 * var(--offset_increment));
+        height: calc(var(--base_offset) + 4 * var(--offset_increment));
+    }
+
+    .orbit:nth-child(4) {
+        width: calc(var(--base_offset) + 6 * var(--offset_increment));
+        height: calc(var(--base_offset) + 6 * var(--offset_increment));
+    }
+
+    .orbit:nth-child(5) {
+        width: calc(var(--base_offset) + 8 * var(--offset_increment));
+        height: calc(var(--base_offset) + 8 * var(--offset_increment));
+    }
+
+    .orbit:nth-child(6) {
+        width: calc(var(--base_offset) + 10 * var(--offset_increment));
+        height: calc(var(--base_offset) + 10 * var(--offset_increment));
+    }
+
+    .solar-system {
+        margin-top: 160px;
+        margin-bottom: 100px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .planet-container-top-left .planet-label {
+        transform: translate(10px, -40px);
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .solar-system {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .planet-orbit-1.planet-index-3 .tooltip {
+        transform: translate(0px, -100px);
+    }
+
+    .planet-orbit-2.planet-index-8 .tooltip {
+        transform: translate(-140px, -140px);
+    }
+
+    .planet-orbit-3.planet-index-9 .planet-label.scale-up {
+        transform: translate(60px, -55px);
+    }
+
+    .planet-orbit-0.planet-index-2 .planet-label.scale-up {
+        transform: translate(90px, 5px);
+    }
+}
+
+/* Extra large devices (large desktops, 1400px and up) */
+@media only screen and (min-width: 1400px) {
+}
+
+/* Ultra large devices (1600px and up) */
+@media only screen and (min-width: 1600px) {
+
+}
+
+/* 4K large devices (1920px and up) */
+@media only screen and (min-width: 1920px) {
+
+}
+
+/* Special media query for only Ipad Mini max-width: 768px */
+@media screen and (max-width: 768px) {
+    .planet-orbit-1.planet-index-3 .tooltip {
+        transform: translate(0px, -100px);
+    }
+
+    .planet-orbit-2.planet-index-8 .tooltip {
+        transform: translate(-140px, -140px);
+    }
+
+    .planet-orbit-3.planet-index-9 .planet-label.scale-up {
+        transform: translate(60px, -55px);
+    }
+
+    .planet-orbit-0.planet-index-2 .planet-label.scale-up {
+        transform: translate(90px, 5px);
+    }
+}
+
+/* Special media query for only mobile Iphone 14 Pro max-width: 599px */
+@media screen and (max-width: 599px) {
+    .planet-orbit-0.planet-index-0 .planet-label {
+        transform: translate(40px, -40px);
+    }
+
+    .planet-orbit-0.planet-index-1 .planet-label {
+        transform: translate(-40px, 0px);
+    }
+
+    .planet-orbit-0.planet-index-2 .planet-label {
+        transform: translate(-30px, -30px);
+    }
+
+    .planet-orbit-1.planet-index-3 .planet-label {
+        transform: translate(53px, -25px);
+    }
+
+    .planet-orbit-1.planet-index-4 .planet-label {
+        transform: translate(5px, 35px);
+    }
+
+    .planet-orbit-1.planet-index-5 .planet-label {
+        transform: translate(-45px, -30px);
+    }
+
+    .planet-orbit-2.planet-index-6 .planet-label {
+        transform: translate(-40px, -30px);
+    }
+
+    .planet-orbit-2.planet-index-7 .planet-label {
+        transform: translate(-30px, 30px);
+    }
+
+    .planet-orbit-2.planet-index-8 .planet-label {
+        transform: translate(40px, 35px);
+    }
+
+    .planet-orbit-3.planet-index-9 .planet-label {
+        transform: translate(30px, 30px);
+    }
+
+    .planet-orbit-0.planet-index-0 .planet-label.scale-up {
+        transform: translate(40px, 15px);
+    }
+
+    .planet-orbit-1.planet-index-3 .planet-label.scale-up {
+        transform: translate(5px, -25px);
+    }
+
+    .planet-orbit-0.planet-index-2 .planet-label.scale-up {
+        transform: translate(-20px, 15px);
+    }
+
+    .planet-orbit-2.planet-index-7 .planet-label.scale-up {
+        transform: translate(-80px, 15px);
+    }
+
+    .planet-orbit-1.planet-index-5 .planet-label.scale-up {
+        transform: translate(0px, -30px);
+    }
+
+    .planet-orbit-0.planet-index-0 .tooltip {
+        transform: translate(-40px, -90px);
+    }
+
+    .planet-orbit-0.planet-index-1 .tooltip {
+        transform: translate(95px, -90px);
+    }
+
+    .planet-orbit-0.planet-index-2 .tooltip {
+        transform: translate(5px, -95px);
+    }
+
+    .planet-orbit-1.planet-index-3 .tooltip {
+        transform: translate(-70px, 100px);
+    }
+
+    .planet-orbit-1.planet-index-4 .tooltip {
+        transform: translate(0px, -95px);
+    }
+
+    .planet-orbit-1.planet-index-5 .tooltip {
+        transform: translate(65px, 110px);
+    }
+
+    .planet-orbit-2.planet-index-6 .tooltip {
+        transform: translate(-50px, 100px);
+    }
+
+    .planet-orbit-2.planet-index-7 .tooltip {
+        transform: translate(-130px, -80px);
+    }
+
+    .planet-orbit-2.planet-index-8 .tooltip {
+        transform: translate(130px, -130px);
+    }
+
+    .planet-orbit-3.planet-index-9 .tooltip {
+        transform: translate(-90px, 160px);
+    }
+
+    .planet-orbit-0.planet-index-0 {
+        transform: rotate(25deg) translate(100px) rotate(-25deg) !important;
+    }
+
+    .planet-orbit-0.planet-index-1 {
+        transform: rotate(145deg) translate(100px) rotate(-145deg) !important;
+    }
+
+    .planet-orbit-0.planet-index-2 {
+        transform: rotate(265deg) translate(100px) rotate(-265deg) !important;
+    }
+
+    .planet-orbit-1.planet-index-3 {
+        transform: rotate(325deg) translate(150px) rotate(-325deg) !important;
+    }
+
+    .planet-orbit-1.planet-index-4 {
+        transform: rotate(85deg) translate(150px) rotate(-85deg) !important;
+    }
+
+    .planet-orbit-1.planet-index-5 {
+        transform: rotate(205deg) translate(150px) rotate(-205deg) !important;
+    }
+
+    .planet-orbit-2.planet-index-6 {
+        transform: rotate(265deg) translate(200px) rotate(-265deg) !important;
+    }
+
+    .planet-orbit-2.planet-index-7 {
+        transform: rotate(25deg) translate(200px) rotate(-25deg) !important;
+    }
+
+    .planet-orbit-2.planet-index-8 {
+        transform: rotate(145deg) translate(200px) rotate(-145deg) !important;
+    }
+
+    .planet-orbit-3.planet-index-9 {
+        transform: rotate(290deg) translate(250px) rotate(-290deg) !important;
+    }
+}
+
+/* Special media query for only mobile Iphone 12 Pro, Pixel 7 max-width: 414px */
+@media screen and (max-width: 414px) {
+    .planet-orbit-1.planet-index-5 .planet-label {
+        transform: translate(-20px, -30px);
+    }
+
+    .planet-orbit-1.planet-index-3 .planet-label {
+        transform: translate(30px, -25px);
+    }
+
+    .planet-orbit-0.planet-index-2 .planet-label {
+        transform: translate(0px, -40px);
+    }
+}
+
+/* Special media query for only mobile Iphone SE max-width: 375px */
+@media screen and (max-width: 375px) {
+    .planet-orbit-1.planet-index-5 .planet-label {
+        transform: translate(0px, -30px);
+    }
+
+    .planet-orbit-1.planet-index-3 .planet-label {
+        transform: translate(20px, -25px);
+    }
+
+    .planet-orbit-0.planet-index-2 .planet-label {
+        transform: translate(0px, -40px);
+    }
+
+    .planet-orbit-1.planet-index-5 .planet-label.scale-up {
+        transform: translate(20px, -30px);
+    }
+}
+
+/* Animation keyframes */
+@keyframes orbit {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes counter-orbit {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/* Animation cho pulse effect */
+@keyframes smoothPulse {
+    0% {
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.2);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Animation cho wave effect */
+@keyframes smoothWave {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+        border-width: 1px;
+    }
+
+    85% {
+        transform: translate(-50%, -50%) scale(4.5);
+        opacity: 0.15;
+        border-width: 0.3px;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0;
+        border-width: 0.2px;
+    }
+}
+
+/* Keyframes cho chuyển động từ trái qua phải với hiệu ứng lớn dần rồi nhỏ dần */
+@keyframes flare-move {
+    0% {
+        left: 0;
+        /* Bắt đầu từ bên trái */
+        transform: scale(0.5);
+        /* Kích thước nhỏ khi ở xa */
+        opacity: 0.6;
+    }
+
+    50% {
+        left: 50%;
+        /* Ở giữa màn hình */
+        transform: scale(1.2);
+        /* Kích thước lớn hơn khi ở giữa */
+        opacity: 1;
+        /* Rõ nét hơn ở giữa */
+    }
+
+    100% {
+        left: 100%;
+        /* Đi sang bên phải */
+        transform: scale(0.5);
+        /* Nhỏ lại khi đi xa */
+        opacity: 0.6;
+    }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "../../umbraco-package-schema.json",
+  "name": "GTEL Localization",
+  "version": "0.1.0",
+  "extensions": [
+    {
+      "type": "localization",
+      "alias": "External.Localize.EnUS",
+      "name": "English",
+      "meta": {
+        "culture": "en-us"
+      },
+      "js": "/App_Plugins/GtelLocalization/localization/en-us.js"
+    },
+    {
+      "type": "localization",
+      "alias": "External.Localize.ViVN",
+      "name": "Việt Nam",
+      "meta": {
+        "culture": "vi-VN"
+      },
+      "js": "/App_Plugins/GtelLocalization/localization/vi-vn.js"
+    }
+  ]
+}

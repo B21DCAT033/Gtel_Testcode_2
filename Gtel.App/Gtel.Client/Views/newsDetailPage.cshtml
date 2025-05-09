@@ -1,0 +1,221 @@
+﻿@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<News>
+@{
+    Layout = "masterPage.cshtml";
+}
+
+<style>
+    p img {
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+@{
+    var news_management = Umbraco.Content("a8263626-bf82-4bd5-ad68-482843dd8d23");
+    var other_news = news_management?.ChildrenOfType("news")?
+        .Where(x => x.Id != Model.Id)
+        .OrderByDescending(x => x.UpdateDate)
+        .Take(3);
+
+    var categories_management = Umbraco.Content("715c9f0e-f06f-4ba8-9130-5c67cc144cd1");
+    var categories = categories_management?.ChildrenOfType("category");
+}
+
+<!-- Blog Details Start -->
+<div class="section blog-details-section section-padding">
+    <div class="container">
+        <!-- Blog Details Wrap Start -->
+        <div class="blog-details-wrap">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8">
+                    <!-- Blog Details Post Start -->
+                    <div class="blog-details-post">
+                        <!-- Single Blog Start -->
+                        <div class="single-blog-post single-blog">
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span class="tag"><i class="far fa-bookmark"></i>@Model.Category?.FirstOrDefault()?.Name</span>
+                                    <span><i class="fas fa-user"></i> <a href="#">@Model.Author</a></span>
+                                    <span><i class="fas fa-clock"></i> @Model.UpdateDate.ToString("dd/MM/yyyy")</span>
+                                </div>
+                                <h3 class="title">@Model.Title</h3>
+                            </div>
+                        </div>
+                        <!-- Single Blog End -->
+                        <div class="blog-details-content">
+                            <!-- Blog Blockquote Start -->
+                            <div class="blog-quote">
+                                <blockquote class="blockquote">
+                                    <p>@Model.Description</p>
+                                </blockquote>
+                            </div>
+                            <!-- Blog Blockquote End -->
+                            <!-- Blog Details Text Start -->
+                            <div class="blog-details-text">
+                                @Model.Content
+                            </div>
+                            <!-- Blog Details Text End -->
+                            <!-- Blog Details Tag Share Start -->
+                            <div class="blog-details-tag-share">
+                                @if (Model.Tags != null && Model.Tags.Count() > 0)
+                                {
+                                    <div class="blog-details-tag">
+                                        <div class="sidebar-widget">
+                                            <span class="label">@Umbraco.GetDictionaryValue("Tags") :</span>
+                                            <ul class="sidebar-tag">
+                                                @foreach (var tag in Model.Tags)
+                                                {
+                                                    <li>@tag</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="blog-details-share">
+                                    <ul class="social-share">
+                                        <li><a class="share-facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a class="share-twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a class="share-pinterest" href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Blog Details Tag Share End -->
+                            <!-- Commtent Wrap Start -->
+                            <div class="comment-wrap">
+                                <!-- Commtent Form Start -->
+                                <div class="comment-form">
+                                    <h3 class="comment-title">@Umbraco.GetDictionaryValue("YKien")</h3>
+                                    @* <p>Your email address will not be published. Required fields are marked *</p> *@
+                                    <!-- Commtent Form Wrap Start -->
+                                    <div class="comment-form-wrap">
+                                        <form id="formComment" class="form" method="post">
+                                            <input type="hidden" name="newsUmbracoKey" value="@Model.Key" />
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <!--  Single Form Start  -->
+                                                    <div class="single-form">
+                                                        <input type="text" name="name" class="form-control" placeholder="@Umbraco.GetDictionaryValue("HoTen")" required>
+                                                    </div>
+                                                    <!--  Single Form End  -->
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!--  Single Form Start  -->
+                                                    <div class="single-form">
+                                                        <input type="email" name="email" class="form-control" placeholder="@Umbraco.GetDictionaryValue("Email")" required>
+                                                    </div>
+                                                    <!--  Single Form End  -->
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <!--  Single Form Start  -->
+                                                    <div class="single-form">
+                                                        <textarea class="form-control" name="message" placeholder="@Umbraco.GetDictionaryValue("YKien")" required></textarea>
+                                                    </div>
+                                                    <!--  Single Form End  -->
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <!--  Single Form Start  -->
+                                                    <div class="form-btn">
+                                                        <button type="button" id="btnSendMessage" class="btn">@Umbraco.GetDictionaryValue("GuiDi")</button>
+                                                    </div>
+                                                    <!--  Single Form End  -->
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- Commtent Form Wrap End -->
+                                </div>
+                                <!-- Commtent Form End -->
+                            </div>
+                            <!-- Commtent Wrap End -->
+                        </div>
+                    </div>
+                    <!-- Blog Details Post End -->
+                </div>
+                <div class="col-xl-3 col-lg-4">
+                    <!-- Blog Sidebar Start -->
+                    <div class="blog-sidebar">
+                        <!-- Sidebar Widget Start -->
+                        <div class="sidebar-widget">
+                            <!-- Widget Title Start -->
+                            <div class="widget-title">
+                                <h3 class="title">@Umbraco.GetDictionaryValue("BaiVietMoi")</h3>
+                            </div>
+                            <!-- Widget Title End -->
+                            <!-- Widget Recent Post Start -->
+                            @if (other_news != null && other_news.Count() > 0)
+                            {
+                                <div class="recent-posts">
+                                    <ul>
+                                        @foreach (var news in other_news)
+                                        {
+                                            var avatar = news.Value<MediaWithCrops>("avatar");
+                                            <li>
+                                                <a class="post-link" href="@news.Url()" title="@news.Value("title")">
+                                                    <div class="post-thumb">
+                                                        <img src="@avatar?.GetCropUrl("newsExtraSmall")" alt="">
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <h4 class="title line-clamp-2">@news.Value("title")</h4>
+                                                        <span class="post-meta">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                            @news.UpdateDate.ToString("dd MMM, yyyy")
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            <!-- Widget Recent Post End -->
+                        </div>
+                        <!-- Sidebar Widget End -->
+                        <!-- Sidebar Widget Start -->
+                        <div class="sidebar-widget">
+                            <!-- Widget Title Start -->
+                            <div class="widget-title">
+                                <h3 class="title">@Umbraco.GetDictionaryValue("ChuyenMuc")</h3>
+                            </div>
+                            <!-- Widget Title End -->
+                            <!-- Widget Category Start -->
+                            @if (categories != null && categories.Count() > 0)
+                            {
+                                <ul class="category">
+                                    @foreach (var category in categories)
+                                    {
+                                        <li class="cate-item"><a href="@category.Url()"><i class="flaticon-next"></i> @category.Name</a></li>
+                                    }
+                                    <li class="cate-item"><a href="#"><i class="flaticon-next"></i>@Umbraco.GetDictionaryValue("Video")</a></li>
+                                </ul>
+
+                            }
+                            <!-- Widget Category End -->
+                        </div>
+                        <!-- Sidebar Widget End -->
+                    </div>
+                    <!-- Blog Sidebar End -->
+                </div>
+            </div>
+        </div>
+        <!-- Blog Details Wrap End -->
+    </div>
+</div>
+
+<div id="popup-content" class="mfp-popup-content mfp-hide" role="alert">
+    <div class="card">
+        <div class="card-header text-center text-uppercase">
+            @Umbraco.GetDictionaryValue("ThongBao")
+        </div>
+        <div class="card-body">
+            <p class="notification-text text-center"></p>
+        </div>
+        <div class="card-footer text-center">
+            <button type="button" id="btnClosePopup" class="btn">@Umbraco.GetDictionaryValue("Dong")</button>
+        </div>
+    </div>
+</div>
+<!-- Blog Details End -->
+@section Scripts {
+    <script type="module" src="/js/newsDetailPage.gtel.portal.js"></script>
+}

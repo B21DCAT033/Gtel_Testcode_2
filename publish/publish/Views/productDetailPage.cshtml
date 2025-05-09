@@ -1,0 +1,135 @@
+﻿@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Product>
+@{
+    Layout = "masterPage.cshtml";
+
+    var librayPage = Umbraco.Content("1b089de6-1d8a-4d16-bf21-8ca9e8033706");
+    var featuredProducts = librayPage?.Value<IEnumerable<IPublishedContent>>("featuredProducts")?
+        .Where(x => x.Key != Model.Key).Take(3);
+
+    var homePage = Umbraco.Content("66d744fc-d9f9-4479-96c1-958a6642cdfa");
+    var headquartersBranches = homePage?.Value<IEnumerable<IPublishedContent>>("headquartersBranches");
+    var headquarters = headquartersBranches?.FirstOrDefault();
+}
+
+<style>
+    .blog-details-section {
+        margin-top: var(--header-height);
+    }
+
+        .blog-details-section .blog-details-wrap {
+            margin-top: 0;
+        }
+
+    .techwix-cta-section-02 .cta-wrap {
+        margin-bottom: 0;
+    }
+</style>
+
+<!-- Blog Details Start -->
+<div class="section blog-details-section">
+    <div class="container">
+        <!-- Blog Details Wrap Start -->
+        <div class="blog-details-wrap">
+            <div class="row">
+                <div class="col-xl-9 col-lg-8">
+                    <!-- Blog Details Post Start -->
+                    <div class="blog-details-post">
+                        <!-- Single Blog Start -->
+                        <div class="single-blog-post single-blog">
+                            <div class="blog-image">
+                                <img src="@Model.Avatar?.GetCropUrl("newsLarge")" alt="">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta mt-3">
+                                    <span class="tag"><i class="far fa-bookmark"></i>@Model.Category?.Name</span>
+                                </div>
+                                <h3 class="title">@Model.Title</h3>
+                                <p class="text">@Model.Description</p>
+                            </div>
+                        </div>
+                        <!-- Single Blog End -->
+                    </div>
+                    <!-- Blog Details Post End -->
+                </div>
+                <div class="col-xl-3 col-lg-4">
+                    <!-- Blog Sidebar Start -->
+                    <div class="blog-sidebar">
+                        <!-- Sidebar Widget Start -->
+                        @if (featuredProducts != null && featuredProducts.Count() > 0)
+                        {
+                            <div class="sidebar-widget">
+                                <!-- Widget Title Start -->
+                                <div class="widget-title">
+                                    <h3 class="title">@Umbraco.GetDictionaryValue("SanPhamNoiBat")</h3>
+                                </div>
+                                <!-- Widget Title End -->
+                                <!-- Widget Recent Post Start -->
+                                <div class="recent-posts">
+                                    <ul>
+                                        @foreach (var product in featuredProducts)
+                                        {
+                                            var avatar = product.Value<MediaWithCrops>("avatar");
+                                            var category = product.Value<IPublishedContent>("category");
+                                            <li>
+                                                <a class="post-link" href="@product.Url()">
+                                                    <div class="post-thumb">
+                                                        <img src="@avatar?.GetCropUrl("newsExtraSmall")" alt="">
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <h4 class="title">@product.Value("title")</h4>
+                                                        <span class="post-meta">
+                                                            <i class="far fa-bookmark"></i>
+                                                            @category?.Name
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <!-- Widget Recent Post End -->
+                            </div>
+                        }
+                        <!-- Sidebar Widget End -->
+                    </div>
+                    <!-- Blog Sidebar End -->
+                </div>
+            </div>
+        </div>
+        <!-- Blog Details Wrap End -->
+    </div>
+</div>
+<!-- Blog Details End -->
+<!-- Cta Start -->
+<div class="section techwix-cta-section-02 section-padding">
+    <div class="container">
+        <!-- Cta Wrap Start -->
+        <div class="cta-wrap" style="background-image: url(/gtel_modern/images/bg/cta-bg.jpg);">
+            <div class="row align-items-center">
+                <div class="col-xl-9 col-lg-8">
+                    <!-- Cta Content Start -->
+                    <div class="cta-content">
+                        <div class="cta-icon">
+                            <img src="/gtel_modern/images/cta-icon2.png" alt="">
+                        </div>
+                        <p>@Umbraco.GetDictionaryValue("LienHeVoiChungToi")</p>
+                    </div>
+                    <!-- Cta Content End -->
+                </div>
+                <div class="col-xl-3 col-lg-4">
+                    <!-- Cta Button Start -->
+                    <div class="cta-btn">
+                        <a class="btn btn-white" href="#">
+                            @headquarters?.Value("tel")
+                        </a>
+                    </div>
+                    <!-- Cta Button End -->
+                </div>
+            </div>
+        </div>
+        <!-- Cta Wrap End -->
+    </div>
+</div>
+<!-- Cta End -->

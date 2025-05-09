@@ -1,0 +1,23 @@
+@import url('../fonts/montserrat.css');
+
+:root {
+    --gtel-login-form-logo-height: 48px;
+}
+
+umb-auth {
+  font-family: var(--gtel-login-font-family, 'Montserrat', sans-serif);
+  font-size: var(--gtel-login-font-size, 14px);
+  line-height: var(--gtel-login-line-height, 24px);
+}
+
+label[for='username-input'],
+label[for='password-input'] {
+  color: var(--gtel-login-form-label-color, #575757);
+  font-size: var(--gtel-login-form-label-font-size, 0.8rem);
+  font-weight: var(--gtel-login-form-label-font-weight, 700);
+}
+
+#username-input,
+#password-input {
+  margin-top: 0.5rem;
+}

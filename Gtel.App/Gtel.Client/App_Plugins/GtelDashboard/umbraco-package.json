@@ -1,0 +1,24 @@
+{
+  "name": "GTEL Dashboard",
+  "version": "0.1.0",
+  "extensions": [
+    {
+      "type": "dashboard",
+      "alias": "External.GtelDashboard",
+      "name": "GTEL Dashboard",
+      "element": "/App_Plugins/GtelDashboard/gtel-dashboard.js",
+      "elementName": "gtel-dashboard",
+      "weight": 100,
+      "meta": {
+        "label": "GTEL Dashboard",
+        "pathname": "gtel-dashboard"
+      },
+      "conditions": [
+        {
+          "alias": "Umb.Condition.SectionAlias",
+          "match": "Umb.Section.Content"
+        }
+      ]
+    }
+  ]
+}

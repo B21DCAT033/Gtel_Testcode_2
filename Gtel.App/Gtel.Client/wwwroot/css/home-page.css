@@ -1,0 +1,505 @@
+.top-banner-active {
+    margin-top: var(--header-height);
+    width: 100vw;
+    aspect-ratio: 2543 / 760;
+}
+
+.top-banner-content {
+    margin-bottom: 25px;
+}
+
+.top-banner-content .gioi-thieu-column {
+    display: block;
+}
+
+.top-banner-content .gioi-thieu-name {
+    font-size: 20px;
+}
+
+.top-banner-content .gioi-thieu-sub-name {
+    display: none;
+    font-size: 14px;
+}
+
+.about-author img {
+    height: 60px;
+}
+
+.introduction-viewmore {
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.introduction-viewmore>a.learn-more {
+    font-size: 14px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    justify-content: flex-end;
+    transition: all 0.5s ease;
+}
+
+.introduction-viewmore>a.learn-more i {
+    opacity: 0;
+    max-width: 0;
+    min-width: 0;
+    display: inline-block;
+    transform: translateX(-10px);
+    transition: all 0.5s ease, max-width 0.5s ease;
+    overflow: hidden;
+    margin-left: 0;
+}
+
+.introduction-viewmore>a.learn-more u {
+    display: inline-block;
+    transition: transform 0.5s ease;
+    font-weight: 600;
+}
+
+.introduction-viewmore>a.learn-more:hover u {
+    transform: translateX(-5px);
+}
+
+.introduction-viewmore>a.learn-more:hover i {
+    opacity: 1;
+    max-width: 20px;
+    transform: translateX(0);
+    margin-left: 5px;
+}
+
+.introduction-viewmore>a.learn-more.special-white:hover {
+    color: #fff;
+}
+
+.introduction-viewmore>a.learn-more.special-white:hover u,
+.introduction-viewmore>a.learn-more.special-white:hover i {
+    color: #fff;
+}
+
+.single-brand>img {
+    height: 50px;
+}
+
+.case-study-wrap {
+    padding: 20px 0;
+}
+
+.case-study-content-wrap {
+    margin-top: 30px;
+}
+
+.section-parallax-background {
+    position: relative;
+    background-image: url('/images/bg-gtel/bg-gtel-2.png');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+.section-parallax-background > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.section-home-background {
+    /* background: linear-gradient(to top, rgba(235, 242, 250, 0.5), rgba(255, 255, 255, 0.3)) top / 100% 50px, url('/images/bg/service-bg6.jpg'); */
+    background-image: url('/images/bg-gtel/bg-gtel-7.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    /* background-blend-mode: overlay; */
+    position: relative;
+}
+
+
+.section-home-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(235, 242, 250, 0.6));
+    z-index: 1;
+}
+
+.section-home-background > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.about-solar-system {
+    display: flex;
+    justify-content: center;
+    transform: scale(0.9);
+    perspective: 1000px;
+}
+
+.section-brand-padding {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.techwix-brand-section .brand-wrapper .content {
+    margin-top: 0;
+}
+
+.techwix-brand-section .brand-active {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.techwix-brand-section .brand-active-bottom {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* #region------------------Kiến tạo số------------------------ */
+.experience-cycle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    position: relative;
+    margin-top: 40px !important;
+}
+
+.experience-cycle a:hover {
+    color: #fff;
+}
+
+.experience-cycle > .experience-cycle-item:last-child {
+    width: fit-content;
+}
+
+.experience-cycle > .experience-cycle-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: calc(50% - 10px);
+}
+
+.experience-cycle > .experience-cycle-item > .experience-cycle-item--img {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    transform: scale(1);
+    background-color: #fff;
+    will-change: transform;
+}
+
+.experience-cycle > .experience-cycle-item > .experience-cycle-item--img::before,
+.experience-cycle > .experience-cycle-item > .experience-cycle-item--img::after {
+    content: "";
+}
+
+.experience-cycle > .experience-cycle-item > .experience-cycle-item--img::after {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+}
+
+.experience-cycle > .experience-cycle-item > .experience-cycle-item--img img {
+    width: 35px;
+    height: 35px;
+}
+
+.experience-cycle > .experience-cycle-item > .experience-cycle-item--text {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.experience-cycle > .experience-cycle-item:hover > .experience-cycle-item--img {
+    transform: scale(1.05);
+}
+
+.experience-cycle > .experience-cycle-item:hover > .experience-cycle-item--text {
+    font-weight: 500;
+    color: #fff
+}
+
+.experience-cycle > .experience-cycle-item:hover > .experience-cycle-item--img img {
+    animation: swing;
+    animation-duration: 0.5s;
+}
+
+/* #endregion */
+
+.section-background {
+    position: relative;
+}
+
+.bg-parallax-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-parallax-gtel {
+    position: relative;
+    background-image: url('/images/bg-gtel/bg-gtel-6.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    min-height: 200px;
+    opacity: 1;
+    will-change: transform;
+    z-index: 2;
+}
+
+.section-background .bg-left {
+    position: absolute;
+    top: 0;
+    left: -205px;
+    width: 205px;
+    height: 50%;
+    background-image: url('/images/bg-gtel/bg-gtel-3.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
+    z-index: -1;
+    animation: slideFromLeft 3s forwards;
+}
+
+.section-background .bg-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 205px;
+    height: 100%;
+    background-image: url('/images/bg-gtel/bg-gtel-3.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: cover;
+    z-index: -1;
+    animation: slideRightToLeft 3s forwards;
+}
+
+.section-eco-system {
+    /* background-color: #00b1f4; */
+    background-color: #c92435;
+    color: #fff;
+}
+
+.section-eco-system.section-background .bg-left,
+.section-eco-system.section-background .bg-right {
+    background-image: url('/images/bg-gtel/bg-gtel-3.white.png');
+}
+
+.section-eco-system.section-background .paper-flight-top-right {
+    position: absolute;
+    top: 8%;
+    left: 30%;
+    width: 80px;
+    display: none;
+}
+
+.section-eco-system > .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .single-brand>img {
+        height: 70px;
+    }
+
+    .techwix-brand-section .brand-wrapper .content {
+        margin-top: 40px;
+    }
+
+    .techwix-brand-section .brand-active {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+
+    .techwix-brand-section .brand-active-bottom {
+        padding-top: 18px;
+        padding-bottom: 20px;
+    }
+
+    .case-study-content-wrap {
+        margin-top: 60px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .top-banner-content {
+        margin-bottom: 100px;
+    }
+
+    .top-banner-content .gioi-thieu-column {
+        display: flex;
+        height: 100%;
+        align-items: center;
+    }
+
+    .top-banner-content .gioi-thieu-name {
+        font-size: 24px;
+    }
+
+    .top-banner-content .gioi-thieu-sub-name {
+        display: block;
+        font-size: 16px;
+    }
+
+    .introduction-viewmore {
+        font-size: 0.9em;
+        margin-top: 2px;
+    }
+
+    .about-solar-system {
+        transform: scale(1);
+    }
+
+    .experience-cycle {
+        gap: 30px;
+    }
+
+    .experience-cycle > .experience-cycle-item {
+        gap: 20px;
+        width: calc(50% - 40px);
+    }
+
+    .experience-cycle > .experience-cycle-item > .experience-cycle-item--img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .experience-cycle > .experience-cycle-item > .experience-cycle-item--img img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .experience-cycle > .experience-cycle-item > .experience-cycle-item--text {
+        font-size: 16px;
+    }
+
+    .bg-parallax-gtel {
+        min-height: 400px;
+    }
+
+    .experience-cycle > .experience-cycle-item:nth-child(2) {
+        width: fit-content;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .section-background .bg-left {
+        height: 100%;
+    }
+
+    .about-author img {
+        height: 128px;
+    }
+
+    .experience-cycle > .experience-cycle-item > .experience-cycle-item--img::before,
+    .experience-cycle > .experience-cycle-item > .experience-cycle-item--img::after {
+        border: 2px solid #fff;
+        position: absolute;
+        z-index: 0;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        -webkit-animation: zoombig 3.25s linear infinite;
+        animation: zoombig 3.25s linear infinite;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .top-banner-active .container {
+        max-width: 100%;
+    }
+
+    .section-background .bg-left {
+        transform: translateX(-55px);
+    }
+
+    .section-background .bg-right {
+        transform: translateX(55px);
+    }
+
+    .section-eco-system.section-background .paper-flight-top-right {
+        left: 30%;
+    }
+
+    .about-solar-system {
+        justify-content: end;
+    }
+}
+
+/* Ultra large devices (1600px and up) */
+@media only screen and (min-width: 1600px) {
+    .top-banner-content .gioi-thieu-name {
+        font-size: 30px;
+    }
+
+    .top-banner-content .gioi-thieu-sub-name {
+        font-size: 18px;
+    }
+
+    .section-eco-system.section-background .paper-flight-top-right {
+        left: 37%;
+    }
+}
+
+/* 4K large devices (1920px and up) */
+@media only screen and (min-width: 1920px) {
+    .case-study-wrap {
+        padding: 20px 70px;
+    }
+
+    .section-background .bg-left {
+        transform: translateX(0);
+    }
+
+    .section-background .bg-right {
+        transform: translateX(0);
+    }
+
+    .section-eco-system.section-background .paper-flight-top-right {
+        left: 40%;
+    }
+}
+
+/* Special media query for only mobile */
+@media screen and (max-width: 599px) {
+    .section-background .bg-left {
+        display: none;
+    }
+
+    .section-background .bg-right {
+        display: none;
+    }
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: -20%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slideRightToLeft {
+    from {
+        right: -20%;
+    }
+    to {
+        right: 0;
+    }
+}

@@ -1,0 +1,143 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@(!string.IsNullOrEmpty(Model.Value("pageTitle")?.ToString())
+         ? Model.Value("pageTitle") : !string.IsNullOrEmpty(Model.Name)
+         ? Model.Name : "GTEL Portal")</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/images/logo.png">
+
+    <!-- CSS ============================================ -->
+
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="/gtel_modern/css/plugins/all.min.css">
+    <link rel="stylesheet" href="/gtel_modern/css/plugins/flaticon.css">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/gtel_modern/css/plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="/gtel_modern/css/plugins/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/gtel_modern/css/plugins/aos.css">
+    <link rel="stylesheet" href="/gtel_modern/css/plugins/magnific-popup.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/gtel_modern/css/style.css">
+    <link rel="stylesheet" href="/css/preloader-gtel.css">
+    <script src="/gtel_modern/js/vendor/jquery-1.12.4.min.js"></script>
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+    @await RenderSectionAsync("Styles", false)
+
+    <!--  Other CSS  -->
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/css/animateCustome.css">
+    <link rel="stylesheet" href="/gtel_modern/css/custom-style.css">
+    <link rel="stylesheet" href="/css/gtel.portal.css">
+    <link rel="stylesheet" href="/css/pikaday.css">
+    <link rel="stylesheet" href="/css/particles.css">
+
+    <script src='/js/wow.min.js' defer></script>
+
+    <script>
+        $(function () {
+            window.wow = new WOW();
+            wow.init();
+        }); 
+    </script>
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+        <input type="hidden" id="dict_viewMoreText" value="@Umbraco.GetDictionaryValue("ChiTiet")" />
+        <input type="hidden" id="dict_applyNowText" value="@Umbraco.GetDictionaryValue("UngTuyenNgay")" />
+        <input type="hidden" id="dict_watchVideoText" value="@Umbraco.GetDictionaryValue("XemVideo")" />
+
+        <!-- Preloader start -->
+        <div id="preloader">
+            <div class="preloader">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <!-- Preloader End -->
+
+        <!-- Preloader Gtel start -->
+        <div class="preloader-gtel">
+            <div class="logo">
+                <img src="/images/logo/gtel.png" alt="">
+            </div>
+        </div>
+        <!-- Preloader Gtel end -->
+
+        @await Html.PartialAsync("gtel/header")
+        @await Html.PartialAsync("gtel/header_mobile")
+
+        @RenderBody()
+
+        @await Html.PartialAsync("gtel/footer")
+
+        <!-- back to top start -->
+        <div class="progress-wrap">
+            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+            </svg>
+        </div>
+        <!-- back to top end -->
+
+    </div>
+
+    <!-- JS
+    ============================================ -->
+
+    <script src="/gtel_modern/js/vendor/modernizr-3.11.2.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="/gtel_modern/js/plugins/popper.min.js"></script>
+    <script src="/gtel_modern/js/plugins/bootstrap.min.js"></script>
+
+    <!-- Plugins JS -->
+    <script src="/gtel_modern/js/plugins/swiper-bundle.min.js"></script>
+    <script src="/js/swiper-bundle-carousel.min.js"></script>
+    <script src="/gtel_modern/js/plugins/aos.js"></script>
+    <script src="/gtel_modern/js/plugins/waypoints.min.js"></script>
+    <script src="/gtel_modern/js/plugins/back-to-top.js"></script>
+    <script src="/gtel_modern/js/plugins/jquery.counterup.min.js"></script>
+    <script src="/gtel_modern/js/plugins/appear.min.js"></script>
+    <script src="/gtel_modern/js/plugins/jquery.magnific-popup.min.js"></script>
+    <script src="/gtel_modern/js/plugins/jquery.validate.min.js"></script>
+    <script src="/gtel_modern/js/plugins/jquery-validation-additional-methods.js"></script>
+
+    <!--====== Use the minified version files listed below for better performance and remove the files listed above ======-->
+
+    <!-- Main JS -->
+    <script src="/gtel_modern/js/main.js"></script>
+    <script src="/gtel_modern/js/custom.js"></script>
+
+    <!-- Other JS -->
+    <script src="/js/pikaday.js"></script>
+    <script src="/js/particles.min.js"></script>
+    <script src="/js/particles-config.js"></script>
+    <script src="/js/gsap.min.js"></script>
+    <script src="/js/ScrollTrigger.min.js"></script>
+    <script src="/js/preloader-gtel.js"></script>
+    <script>
+        $(function () {
+            gsap.registerPlugin(ScrollTrigger);
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", false)
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+﻿/* #region ---------------- BANNER SECTION ---------------- */
+.gtel-banner-section {
+    aspect-ratio: unset !important;
+}
+
+.gtel-banner-section .hero-content {
+    margin-left: 0 !important;
+}
+
+.gtel-banner-section .hero-content .title {
+    margin-top: 0.25rem !important;
+}
+/* #endregion */
+
+/* #region ---------------- SERVICES SECTION ---------------- */
+.techwix-about-section-06 .about-content-wrap {
+    margin-top: 0;
+}
+
+    .techwix-about-section-06 .about-content-wrap .title {
+        text-transform: uppercase;
+    }
+
+    .techwix-about-section-06 .about-content-wrap .sub-title {
+        font-weight: 500;
+    }
+
+    .techwix-about-section-06 .about-content-wrap .about-list-wrap {
+        padding-top: 30px;
+    }
+
+        .techwix-about-section-06 .about-content-wrap .about-list-wrap .about-list li {
+            font-size: 16px;
+        }
+
+            .techwix-about-section-06 .about-content-wrap .about-list-wrap .about-list li span {
+                margin-left: 10px;
+                transition: all 0.3s linear;
+            }
+
+            .techwix-about-section-06 .about-content-wrap .about-list-wrap .about-list li:hover span {
+                margin-left: 20px;
+            }
+
+.techwix-about-section-06 .about-img {
+    transform: scale(0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .techwix-about-section-06 .about-img .image {
+        position: relative;
+        padding-left: 0;
+    }
+
+        .techwix-about-section-06 .about-img .image img {
+            width: 75%;
+        }
+
+    .techwix-about-section-06 .about-img .shape-1 {
+        position: absolute;
+        top: unset;
+        left: unset;
+    }
+
+.techwix-service-section-07 .service-content {
+    padding-right: 0;
+    margin-top: 60px;
+}
+
+    .techwix-service-section-07 .service-content .service-list {
+        padding-top: 0;
+    }
+
+        .techwix-service-section-07 .service-content .service-list ul li .service-text {
+            text-align: justify;
+        }
+
+/* #endregion */
+
+/* #region ---------------- PROJECTS SECTION ---------------- */
+.business-activity-page-projects {
+    position: relative;
+    overflow: hidden;
+}
+
+.business-activity-page-projects .service-content-wrap {
+    padding-top: 0;
+}
+
+.business-activity-page-projects .service-item {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: 100%;
+    min-height: 224px;
+    margin-top: 0;
+    padding: 20px 30px 30px;
+    transition: all 0.3s linear;
+}
+
+.business-activity-page-projects .service-item .service-item-body {
+    position: relative;
+    z-index: 4;
+}
+
+.business-activity-page-projects .service-item .service-item-body .service-img:has(~.service-content:hover) > img {
+    animation: bounceDelay;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+.business-activity-page-projects .service-item .service-item-body .service-content p {
+    -webkit-line-clamp: unset;
+}
+
+/* Thêm element mới cho góc tam giác */
+.business-activity-page-projects .service-item .corner {
+    border: none;
+    border-right: 24px solid transparent;
+    border-top: 24px solid #0079c2;
+    content: "";
+    display: block;
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+    z-index: 3;
+}
+
+/* Overlay màu xanh */
+.business-activity-page-projects .service-item:before {
+    content: "";
+    display: block;
+    height: 200%;
+    left: -165%;
+    position: absolute;
+    top: -242%;
+    transform: rotate(29deg);
+    transform-origin: center center;
+    transition: .4s;
+    width: 180%;
+    z-index: 1;
+    background: #0086ce;
+}
+
+/* Background pattern */
+.business-activity-page-projects .service-item:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140%;
+    height: 140%;
+    background: url('/images/shape/testi-shape1.png') no-repeat center center;
+    background-size: contain;
+    opacity: 0;
+    transition: .4s;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    image-rendering: -webkit-optimize-contrast;  /* Cải thiện độ nét cho Chrome */
+    image-rendering: crisp-edges;  /* Cải thiện độ nét cho Firefox */
+}
+
+.business-activity-page-projects .service-item:hover * {
+    color: #fff !important;
+    filter: brightness(0) invert(1);
+}
+
+/* Di chuyển góc tam giác khi hover */
+.business-activity-page-projects .service-item:hover .corner {
+    border: none;
+    border-bottom: 24px solid #0079c2;
+    border-left: 24px solid transparent;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    top: auto;
+    z-index: 3;
+}
+
+/* Hiện pattern khi hover */
+.business-activity-page-projects .service-item:hover:after {
+    opacity: 0.4;
+}
+
+/* Di chuyển overlay khi hover */
+.business-activity-page-projects .service-item:hover:before {
+    left: -50%;
+    top: -60%;
+}
+
+/* #endregion */
+
+/* #region ---------------- RESEARCH SECTION ---------------- */
+.techwix-service-section-07 .experience-wrap {
+    transform: scale(0.8);
+}
+
+    .techwix-service-section-07 .experience-wrap .experience {
+        text-align: center;
+    }
+
+        .techwix-service-section-07 .experience-wrap .experience span {
+            font-size: 18px;
+        }
+/* #endregion */
+
+@media only screen and (max-width: 575.98px) {
+    /* #region ---------------- BANNER SECTION ---------------- */
+    .gtel-banner-section .row {
+        margin-right: 0;
+    }
+
+    .gtel-banner-section .hero-content .title {
+        font-size: 24px !important;
+    }
+    /* #endregion */
+}
+
+@media only screen and (min-width: 576px) {
+    /* #region ---------------- BANNER SECTION ---------------- */
+    .gtel-banner-section .hero-content .title {
+        margin-top: 0 !important;
+    }
+    /* #endregion */
+
+    /* #region ---------------- SERVICES SECTION ---------------- */
+    .techwix-about-section-06 .about-img .image img {
+        width: 95%;
+    }
+
+    .techwix-service-section-07 .service-content .service-list ul li .service-text {
+        font-size: 18px;
+    }
+    /* #endregion */
+
+    /* #region ---------------- PROJECTS SECTION ---------------- */
+    /* #endregion */
+
+    /* #region ---------------- RESEARCH SECTION ---------------- */
+    .techwix-service-section-07 .experience-wrap .experience span {
+        font-size: 20px;
+    }
+    /* #endregion */
+}
+
+@media only screen and (min-width: 768px) {
+
+    /* #region ---------------- BANNER SECTION ---------------- */
+    /* #endregion */
+
+    /* #region ---------------- SERVICES SECTION ---------------- */
+    .techwix-about-section-06 .about-img .image img {
+        width: 100%;
+    }
+
+    /* #endregion */
+
+    /* #region ---------------- PROJECTS SECTION ---------------- */
+    .service-content-wrap .service-item .service-item-body .service-content {
+        font-size: 16px;
+    }
+
+    /* #endregion */
+
+    /* #region ---------------- RESEARCH SECTION ---------------- */
+    /* #endregion */
+}
+
+@media only screen and (min-width: 992px) {
+
+    /* #region ---------------- BANNER SECTION ---------------- */
+    .gtel-banner-section {
+        aspect-ratio: 2543 / 760;
+    }
+    /* #endregion */
+
+    /* #region ---------------- SERVICES SECTION ---------------- */
+    .techwix-about-section-06 .about-img .image img {
+        width: 85%;
+    }
+
+    .techwix-service-section-07 .service-content {
+        margin-top: -40px;
+        margin-left: -40px;
+    }
+    /* #endregion */
+
+    /* #region ---------------- PROJECTS SECTION ---------------- */
+    .business-activity-page-projects .service-item .service-item-body .service-img img {
+        height: 80px;
+    }
+    /* #endregion */
+
+    /* #region ---------------- RESEARCH SECTION ---------------- */
+    /* #endregion */
+}
+
+@media only screen and (min-width: 1200px) {
+
+    /* #region ---------------- BANNER SECTION ---------------- */
+    /* #endregion */
+
+    /* #region ---------------- SERVICES SECTION ---------------- */
+    .techwix-about-section-06 .about-content-wrap {
+        padding-right: 0;
+    }
+
+        .techwix-about-section-06 .about-content-wrap .sub-title {
+            font-size: 20px;
+        }
+
+    .techwix-about-section-06 .about-img .image img {
+        width: 100%;
+    }
+
+    /* #endregion */
+
+    /* #region ---------------- PROJECTS SECTION ---------------- */
+
+    /* #endregion */
+
+    /* #region ---------------- RESEARCH SECTION ---------------- */
+    /* #endregion */
+}
+
+/* Extra large devices (large desktops, 1400px and up) */
+@media only screen and (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1200px;
+    }
+}
+
+/* Ultra large devices (1600px and up) */
+@media only screen and (min-width: 1600px) {
+}
+
+/* 4K large devices (1920px and up) */
+@media only screen and (min-width: 1920px) {
+    .service-content-wrap .service-item .service-item-body .service-content {
+        font-size: 18px;
+    }
+}

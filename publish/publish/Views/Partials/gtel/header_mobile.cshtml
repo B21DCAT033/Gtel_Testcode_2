@@ -1,0 +1,86 @@
+﻿@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var menu_mobile = Umbraco.Content("8ec4d6da-4c0e-4d57-8ad9-4d3c0409d631");
+    var menuItems = menu_mobile?.Children();
+}
+
+<!-- Offcanvas Start-->
+<div class="offcanvas offcanvas-start" id="offcanvasExample">
+    <div class="offcanvas-header">
+        <!-- Offcanvas Logo Start -->
+        <div class="offcanvas-logo">
+            <a href="index.html"><img src="/images/logo.png" alt=""></a>
+        </div>
+        <!-- Offcanvas Logo End -->
+        <button type="button" class="close-btn" data-bs-dismiss="offcanvas"><i class="flaticon-close"></i></button>
+    </div>
+
+    <!-- Offcanvas Body Start -->
+    <div class="offcanvas-body">
+        <div class="offcanvas-menu">
+            <ul class="main-menu">
+                @* <li class="active-menu">
+                    <a href="index.html">Home</a>
+                    <ul class="sub-menu">
+                        <li><a href="index.html">Home Main</a></li>
+                        <li><a href="index-2.html">AI Solutions</a></li>
+                        <li><a href="index-3.html">Cyber Security</a></li>
+                        <li><a href="index-4.html">IT Solutions</a></li>
+                        <li class="active"><a href="index-5.html">Software Company</a></li>
+                        <li><a href="index-6.html">IT Agency</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="about.html">Aboute Us</a>
+                </li>
+                <li>
+                    <a href="#">Pages</a>
+                    <ul class="sub-menu">
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="service.html">Service</a></li>
+                        <li><a href="choose-us.html">Why Choose Us</a></li>
+                        <li><a href="testimonial.html">Testimonial</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="login-register.html">Login & Register</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Blog</a>
+                    <ul class="sub-menu">
+                        <li><a href="blog.html">Blog Grid</a></li>
+                        <li><a href="blog-standard.html">Blog List</a></li>
+                        <li><a href="blog-details.html">Blog Single</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">Contact</a></li> *@
+
+                @if (menuItems != null && menuItems.Any())
+                {
+                    foreach (var item in menuItems)
+                    {
+                        var link = item.Value<Link>("link");
+                        <li>
+                            <a href="@link?.Url">@item.Name</a>
+                            @if (item.Children() != null && item.Children().Count() > 0)
+                            {
+                                <ul class="sub-menu">
+                                    @foreach (var item_child in item.Children())
+                                    {
+                                        var child_link = item_child.Value<Link>("link");
+                                        <li><a href="@child_link?.Url">@item_child?.Name</a></li>
+                                    }
+                                </ul>
+                            }
+                        </li>
+                    }
+                }
+
+            </ul>
+        </div>
+    </div>
+    <!-- Offcanvas Body End -->
+</div>
+<!-- Offcanvas End -->

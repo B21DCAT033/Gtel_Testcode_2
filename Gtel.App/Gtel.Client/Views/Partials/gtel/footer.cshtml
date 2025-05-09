@@ -1,0 +1,131 @@
+﻿@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var homePage = Umbraco.Content("66d744fc-d9f9-4479-96c1-958a6642cdfa");
+    var logo_footer = homePage?.Value<MediaWithCrops>("logoFooter");
+    var linkFacebook = homePage?.Value<Link>("linkFacebook");
+    var linkTwitter = homePage?.Value<Link>("linkTwitter");
+    var linkLinkedin = homePage?.Value<Link>("linkLinkedin");
+    var headquartersBranches = homePage?.Value<IEnumerable<IPublishedContent>>("headquartersBranches");
+    var headquarters = headquartersBranches?.FirstOrDefault();
+    var menu_footer = Umbraco.Content("faa3a85b-742d-48a9-a317-780e15e93d49");
+}
+
+<!-- Footer Section Start -->
+<div class="section footer-gtel-section">
+    <div class="container">
+        <!-- Footer Widget Wrap Start -->
+        <div class="footer-widget-wrap">
+            <div class="row">
+                <div class="col">
+                    <a class="footer-logo" href="index.html">
+                        <img src="@(logo_footer?.MediaUrl() ?? "/images/logo-line-01.png")" alt="Logo" height="50">
+                    </a>
+                </div>
+            </div>
+            <div class="row footer-widget-wrap-content">
+                <div class="col-lg-6 col-sm-12">
+                    <!-- Footer Widget Start -->
+                    <div class="footer-widget-about">
+                        @if (headquartersBranches != null && headquartersBranches.Count() > 0)
+                        {
+                            @foreach (var branch in headquartersBranches)
+                            {
+                                <div class="footer-widget">
+                                    <h4 class="footer-widget-title">@branch.Value("title")</h4>
+
+                                    <div class="widget-info">
+                                        <ul>
+                                            <li>
+                                                <div class="info-icon">
+                                                    <i class="flaticon-pin"></i>
+                                                </div>
+                                                <div class="info-text info-text-pin">
+                                                    <span>@branch.Value("address")</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="info-icon info-icon-phone">
+                                                    <i class="flaticon-phone-call"></i>
+                                                </div>
+                                                <div class="info-text info-text-phone me-5">
+                                                    <span><a href="#">@branch.Value("tel")</a></span>
+                                                </div>
+                                                @if (!string.IsNullOrEmpty(branch.Value("fax")?.ToString()))
+                                                {
+                                                    <div class="info-icon info-icon-fax">
+                                                        <i class="fa fa-fax"></i>
+                                                    </div>
+                                                    <div class="info-text info-text-fax">
+                                                        <span><a href="#">@branch.Value("fax")</a></span>
+                                                    </div>
+                                                }
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <!-- Footer Widget End -->
+                </div>
+                <div class="col-lg-3 col-sm-6 footer-widget-wrap-content--connect">
+                    <!-- Footer Widget Start -->
+                    <div class="footer-widget">
+                        <h4 class="footer-widget-title text-uppercase">@Umbraco.GetDictionaryValue("KetNoiNhanh")</h4>
+
+                        <div class="widget-link">
+                            <ul class="link">
+                                @if (menu_footer != null && menu_footer.Children().Count() > 0)
+                                {
+                                    foreach (var menu in menu_footer.Children())
+                                    {
+                                        var link = menu.Value<Link>("link");
+                                        <li><a href="@link?.Url"><span>@menu.Name</span></a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Footer Widget End -->
+                </div>
+                <div class="col-lg-3 col-sm-6 footer-widget-wrap-content--policy">
+                    <!-- Footer Widget Start -->
+                    <div class="footer-widget">
+                        <h4 class="footer-widget-title text-uppercase">@Umbraco.GetDictionaryValue("DieuKhoanVaChinhSach")</h4>
+
+                        <div class="widget-link">
+                            <ul class="link">
+                                <li><a href="/dieu-khoan-su-dung"><span>@Umbraco.GetDictionaryValue("DieuKhoanSuDung")</span></a></li>
+                                <li><a href="/quy-dinh-bao-mat"><span>@Umbraco.GetDictionaryValue("QuyDinhBaoMat")</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright-wrap">
+            <div class="light-effect"></div>
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <!-- Footer Copyright Text Start -->
+                    <div class="copyright-text copyright-text-left">
+                        <p>@homePage?.Value("copyright1")</p>
+                    </div>
+                    <!-- Footer Copyright Text End -->
+                </div>
+                <div class="col-lg-4">
+                    <!-- Footer Copyright Text Start -->
+                    <div class="copyright-text copyright-text-right">
+                        <p>@homePage?.Value("copyright2")</p>
+                    </div>
+                    <!-- Footer Copyright Text End -->
+                </div>
+            </div>
+        </div>
+        <!-- Footer Widget Wrap End -->
+    </div>
+</div>
+<!-- Footer Section End -->

@@ -1,0 +1,469 @@
+﻿@using System.Globalization
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    Layout = "masterPage.cshtml";
+    var enUsCulture = CultureInfo.GetCultureInfo("en-US");
+    var topBanners = Model.Value<IEnumerable<IPublishedContent>>("topBanners");
+    var featured_news = Model.Value<IEnumerable<IPublishedContent>>("featuredNews");
+    var keyMembers = Model.Value<IEnumerable<IPublishedContent>>("keyMembersOfEcosystem");
+    var partners = Model.Value<IEnumerable<IPublishedContent>>("keyPartners");
+}
+
+@section Styles {
+<link href="/css/eco-system-static.css" rel="stylesheet">
+<link href="/css/home-page.css" rel="stylesheet">
+}
+
+<!-- Banner Top Slice -->
+<div class="swiper-container top-banner-active">
+    <div class="swiper-wrapper">
+        @if (topBanners != null && topBanners.Count() > 0)
+        {
+            @foreach (var banner in topBanners)
+            {
+                var banner_image = banner.Value<MediaWithCrops>("image");
+                var banner_descriptions = banner.Value<string[]>("description");
+                <div class="swiper-slide section techwix-hero-section" style="background-image: url(@banner_image?.MediaUrl());">
+                    <div class="container">
+                        <div class="row align-items-center h-100">
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6">
+                                <div class="hero-content top-banner-content">
+                                    <div class="gioi-thieu-column">
+                                        <div class="gioi-thieu-text text-white">
+                                            <div class="gioi-thieu-name text-uppercase fw-bold my-2 wow fadeInRight">
+                                                @banner.Value("title")
+                                            </div>
+                                            <div class="gioi-thieu-sub-name my-2">
+                                                @if (banner_descriptions != null && banner_descriptions.Count() > 0)
+                                                {
+                                                    var index = 0;
+                                                    @foreach (var desc in banner_descriptions)
+                                                    {
+                                                        index++;
+                                                        var timeDalay = (index * 0.6).ToString("N1", enUsCulture);
+                                                        var parts = desc.Split(new[] { ':' }, 2);
+                                                        @if (parts.Length > 1)
+                                                        {
+                                                            @:<span class="wow fadeInUp" data-wow-delay="@(timeDalay)s">@parts[0]:<strong>@parts[1]</strong></span><br />
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="wow fadeInUp" data-wow-delay="@(timeDalay)s">@desc</span><br />
+                                                        }
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="swiper-banner-button-prev swiper-button-display">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+            d="M28 55C13.0883 55 1 42.9117 1 28C1 13.0883 13.0883 1 28 1C42.9117 1 55 13.0883 55 28C55 42.9117 42.9117 55 28 55Z"
+            fill="black" fill-opacity="0.15" stroke="white" stroke-opacity="0.6" stroke-width="2"
+            stroke-miterlimit="10"></path>
+            <path d="M31.375 17.875L20.125 28L31.375 38.125" stroke="white" stroke-opacity="0.8" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+    </div>
+    <div class="swiper-banner-button-next swiper-button-display">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+            d="M28 55C42.9117 55 55 42.9117 55 28C55 13.0883 42.9117 1 28 1C13.0883 1 1 13.0883 1 28C1 42.9117 13.0883 55 28 55Z"
+            fill="black" fill-opacity="0.15" stroke="white" stroke-opacity="0.6" stroke-width="2"
+            stroke-miterlimit="10"></path>
+            <path d="M24.625 17.875L35.875 28L24.625 38.125" stroke="white" stroke-opacity="0.8" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+    </div>
+
+    <div class="swiper-pagination"></div>
+</div>
+<!-- Banner Top Slice End -->
+
+<!-- TongCongTyCongNghe Start -->
+<div class="section techwix-about-section-02 section-background section-padding">
+    <div class="bg-left"></div>
+    <div class="bg-right"></div>
+    <div class="container">
+        <div class="about-wrap">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="text-uppercase text-center mt-3 wow control-fadeInUp">@Umbraco.GetDictionaryValue("TenCongTy")</h2>
+                </div>
+                <div class="col-lg-12">
+                    <div class="wow control-fadeInUp">
+                        <p>@Model.Value("briefIntroduction")</p>
+                        <div class="text-end text-uppercase fw-bold introduction-viewmore">
+                            <a class="learn-more" href="/ve-gtel/"><u>@Umbraco.GetDictionaryValue("TimHieuThem")</u><i
+                                class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="particle-container particle-linhVuc-topRight">
+        <div id="particle-tongCongTy" class="particle-soft"></div>
+    </div>
+</div>
+<!-- TongCongTyCongNghe End -->
+
+<!-- LinhVucHoatDong Start -->
+<div class="section techwix-choose-us-section section-padding section-home-background">
+    <div class="section-home-background-overlay"></div> 
+    <div class="container">
+        <div class="choose-us-wrap">
+            <h2 class="text-uppercase text-center">@Umbraco.GetDictionaryValue("LinhVucHoatDong")</h2>
+            <div class="choose-us-content-wrap wow fadeIn">
+                <div class="swiper-carousel swiper-container-overflow us-active">
+                    <div class="swiper-wrapper">
+                        @{
+                            var keyBusinessActivities = Model.Value<IEnumerable<IPublishedContent>>("keyBusinessActivities");
+                        }
+                        @if (keyBusinessActivities != null && keyBusinessActivities.Count() > 0)
+                                    {
+                            @if (keyBusinessActivities.Count() >= 6)
+                            {
+                                var count = 0;
+                                foreach (var businessActivity in keyBusinessActivities)
+                                {
+                                    count++;
+                                    var mediaIndex = count % 3;
+
+                                    var avatar = businessActivity.Value<MediaWithCrops>("avatar");
+                                    var mediaUrl = avatar?.MediaUrl() ?? $"/images/linh-vuc/LV-{mediaIndex}.png";
+
+                                    <div class="swiper-slide swiper-slide-size">
+                                        <div class="swiper-carousel-animate-opacity">
+                                            <img src="@mediaUrl" alt="@businessActivity.Name" />
+                                            <div class="slide-content">
+                                                <h2>@businessActivity.Name</h2>
+                                                <p>@businessActivity.Value("description")</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                var keyBusinessActivitiesList = keyBusinessActivities.ToList();
+                                var keyBusinessActivitiesListCount = keyBusinessActivitiesList.Count();
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    var mediaIndex = i % 3;
+                                    var dataIndex = i < keyBusinessActivitiesListCount ? i : mediaIndex;
+
+                                    var businessActivity = keyBusinessActivitiesList[dataIndex];
+                                    var avatar = businessActivity.Value<MediaWithCrops>("avatar");
+                                    var mediaUrl = avatar?.MediaUrl() ?? $"/images/linh-vuc/LV-{mediaIndex}.png";
+
+                                    <div class="swiper-slide swiper-slide-size">
+                                        <div class="swiper-carousel-animate-opacity">
+                                            <img src="@mediaUrl" alt="" />
+                                            <div class="slide-content">
+                                                <h2>@businessActivity.Name</h2>
+                                                <p>@businessActivity.Value("description")</p>
+                                                <div class="text-end text-uppercase fw-bold slide-link">
+                                                    <a class="learn-more" href="/linh-vuc-hoat-dong/"><u>@Umbraco.GetDictionaryValue("TimHieuThem")</u></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    @* <div class="swiper-us-button-prev swiper-button-display">
+                        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M28 55C13.0883 55 1 42.9117 1 28C1 13.0883 13.0883 1 28 1C42.9117 1 55 13.0883 55 28C55 42.9117 42.9117 55 28 55Z"
+                                fill="black" fill-opacity="0.15" stroke="white" stroke-opacity="0.6" stroke-width="2"
+                                stroke-miterlimit="10"></path>
+                            <path d="M31.375 17.875L20.125 28L31.375 38.125" stroke="white" stroke-opacity="0.8"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <div class="swiper-us-button-next swiper-button-display">
+                        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M28 55C42.9117 55 55 42.9117 55 28C55 13.0883 42.9117 1 28 1C13.0883 1 1 13.0883 1 28C1 42.9117 13.0883 55 28 55Z"
+                                fill="black" fill-opacity="0.15" stroke="white" stroke-opacity="0.6" stroke-width="2"
+                                stroke-miterlimit="10"></path>
+                            <path d="M24.625 17.875L35.875 28L24.625 38.125" stroke="white" stroke-opacity="0.8"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div> *@
+                </div>
+            </div>
+        </div>
+    </div>
+    @* <div class="particle-container particle-linhVuc-topLeft">
+        <div id="particle-linhVuc-1" class="particle-soft"></div>
+    </div> *@
+    <div class="particle-container particle-linhVuc-bottomLeft">
+        <div id="particle-linhVuc-2" class="particle-soft"></div>
+    </div>
+    @* <div class="particle-container particle-linhVuc-bottomLeft">
+        <div id="particle-linhVuc-2" class="particle-gtel"></div>
+    </div> *@
+</div>
+<!-- LinhVucHoatDong End -->
+
+<!-- HeSinhThaiGtel Start -->
+<div class="section techwix-skill-section-02 section-eco-system section-background section-padding">
+    <div class="bg-left"></div>
+    <img class="paper-flight-top-right wow fadeInLeft" src="/images/piece/paper-flight-top-right.png" alt="" />
+    <div class="container">
+        <div class="about-wrap">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="skill-left">
+                        <div class="section-title wow control-fadeInUp">
+                            <h2 class="title text-uppercase">@Umbraco.GetDictionaryValue("HeSinhThaiGtel")</h2>
+                        </div>
+                        <div class="experience-wrap wow control-fadeInUp">
+                            <div class="experience-text">
+                                <p>
+                                    @Model.Value("gtelEcosystemDescription")
+                                </p>
+                                <div class="text-end text-uppercase fw-bold introduction-viewmore">
+                                    <a class="learn-more special-white" href="/ve-gtel/"><u>@Umbraco.GetDictionaryValue("TimHieuThem")</u><i
+                                            class="fas fa-long-arrow-alt-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="experience-wrap experience-cycle">
+                            <a class="experience-cycle-item wow control-fadeInDown" href="/linh-vuc-hoat-dong/">
+                                <div class="experience-cycle-item--img">
+                                    <img src="/images/kien-tao-so/dich-vu-so.png" alt="">
+                                </div>
+                                <div class="experience-cycle-item--text">DỊCH VỤ</div>
+                            </a>
+                            <a class="experience-cycle-item wow control-fadeInRight" href="/linh-vuc-hoat-dong/">
+                                <div class="experience-cycle-item--img">
+                                    <img src="/images/kien-tao-so/an-ninh-mang.png" alt="">
+                                </div>
+                                <div class="experience-cycle-item--text">DỰ ÁN</div>
+                            </a>
+                            <a class="experience-cycle-item wow control-fadeInUp" href="/linh-vuc-hoat-dong/">
+                                <div class="experience-cycle-item--img">
+                                    <img src="/images/kien-tao-so/giai-phap-so.png" alt="">
+                                </div>
+                                <div class="experience-cycle-item--text">NGHIÊN CỨU, SẢN XUẤT</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                     @{
+                        var BASE_OFFSET = 100; // Khoảng cách từ tâm cho vòng đầu tiên
+                        var OFFSET_INCREMENT = 90; // Khoảng cách tăng thêm cho mỗi vòng
+                        var angle_step = 120; // Góc bước cho mỗi hành tinh trên cùng một vòng tròn (2 hành tinh sẽ cách nhau 180 độ)
+                        var base_angle_offset = 15; // Góc lệch cho mỗi vòng tròn
+                        var next_angle_next = 60; // Góc lệch cho vòng tiếp theo
+                        var planet_index = 0; // Để theo dõi số hành tinh đã được thêm
+                    }
+                    <div class="about-img-wrap">
+                        <div class="about-img about-img-big about-solar-system">
+                            @if (keyMembers != null && keyMembers.Count() > 0)
+                            {
+                                <div class="solar-system">
+                                    <div class="center-logo">
+                                        <img src="~/images/gtel-border-white.png" alt="GTEL">
+                                        <div class="flare north"></div>
+                                        <div class="flare south"></div>
+                                    </div>
+
+                                    <div class="orbit"></div>
+                                    <div class="orbit"></div>
+                                    <div class="orbit"></div>
+                                    <div class="orbit"></div>
+
+                                    @foreach (var member in keyMembers)
+                                    {
+                                        var linkWeb = member.Value<Link>("link")?.Url ?? "/";
+                                        var logo = member.Value<MediaWithCrops>("logo");
+
+                                        // Tính orbit_index dựa trên vị trí của planet
+                                        int orbit_index;
+                                        if (planet_index < 9) // 9 planet đầu tiên trên 3 vòng đầu
+                                        {
+                                            orbit_index = (int)Math.Floor((double)planet_index / 3);
+                                        }
+                                        else // Các planet còn lại trên vòng 4
+                                        {
+                                            orbit_index = 3;
+                                        }
+                                        
+                                        // Tính bán kính dựa trên công thức CSS
+                                        var current_offset = (BASE_OFFSET + ((orbit_index + 1) * 2 * OFFSET_INCREMENT)) / 2;
+
+                                         // Tính góc cơ sở cho từng vòng
+                                        var current_base_angle = base_angle_offset + (orbit_index * next_angle_next);
+
+                                        // Xác định góc cho hành tinh
+                                        double current_angle;
+
+                                        if (orbit_index < 3) // Vòng 1, 2, 3: 3 planet cách nhau 120 độ
+                                        {
+                                            var planet_in_orbit_index = planet_index - (orbit_index * 3);
+                                            current_angle = current_base_angle + (planet_in_orbit_index * angle_step);
+                                        }
+                                        else // Vòng 4: 1 planet
+                                        {
+                                            current_angle = 210; // Đặt ở vị trí dưới trái
+                                        }
+
+                                        var current_angle_deg = current_angle % 360;
+
+                                        var current_angle_css = "planet-container-top-right";
+                                        if (current_angle_deg > 0 && current_angle_deg < 80)
+                                        {
+                                            current_angle_css = "planet-container-bottom-right";
+                                        }
+                                        else if (current_angle_deg >= 80 && current_angle_deg <= 100)
+                                        {
+                                            current_angle_css = "planet-container-bottom-center";
+                                        }
+                                        else if (current_angle_deg > 100 && current_angle_deg < 180)
+                                        {
+                                            current_angle_css = "planet-container-bottom-left";
+                                        }
+                                        else if (current_angle_deg >= 180 && current_angle_deg < 260)
+                                        {
+                                            current_angle_css = "planet-container-top-left";
+                                        }
+                                        else if (current_angle_deg >= 260 && current_angle_deg <= 280)
+                                        {
+                                            current_angle_css = "planet-container-top-center";
+                                        }
+                                        else
+                                        {
+                                            current_angle_css = "planet-container-top-right";
+                                        }
+
+                                        <div class="planet-orbit planet-orbit-@(orbit_index) planet-index-@(planet_index)" 
+                                            style="position: absolute; --base-angle: @(current_angle)deg;--offset: @(current_offset)px;">
+                                            <div class="planet-container @(current_angle_css)">
+                                                <div class="dot"></div>
+                                                <div class="planet-label">
+                                                    <img src="@logo?.MediaUrl()" alt="@member.Name" data="@current_angle">
+                                                </div>
+                                                <div class="tooltip">
+                                                    <div class="profile">
+                                                        <div class="user">
+                                                            <div class="details">
+                                                                <div class="name">@member.Name</div>
+                                                                <div class="icon-link">
+                                                                    <a href="@linkWeb" class="link-button" target="_blank" rel="noopener noreferrer">
+                                                                        <i class="fas fa-link"></i>
+                                                                        <span class="button-text">@Umbraco.GetDictionaryValue("TruyCap")</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="about">
+                                                            @member.Value("description")
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        planet_index++;
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* <div class="particle-container particle-linhVuc-rect-bottomLeft">
+        <div id="particle-heSinhThai-1" class="particle-soft-2"></div>
+    </div> *@
+</div>
+<!-- HeSinhThaiGtel End -->
+
+<!-- TinTuc Start -->
+<div class="section techwix-case-study-section-02 section-padding section-tinTuc-background">
+    <div class="container">
+        <div class="case-study-wrap">
+            <div class="section-title text-center">
+                <h2 class="title text-uppercase">@Umbraco.GetDictionaryValue("TinTuc")</h2>
+            </div>
+            <div class="case-study-content-wrap wow fadeIn">
+                <div class="swiper-container-overflow case-study-active">
+                    <div class="swiper-wrapper">
+                        @if (featured_news != null && featured_news.Any())
+                        {
+                            foreach (var news in featured_news)
+                            {
+                                var avatar = news.Value<MediaWithCrops>("avatar");
+
+                                <div class="swiper-slide">
+                                    <div class="single-case-study-02">
+                                        <div class="case-study-img">
+                                            <a href="@news.Url()"><img src="@avatar?.GetCropUrl("newsMedium")" alt=""></a>
+                                        </div>
+                                        <div class="case-study-content py-2">
+                                            <h3 class="title">
+                                                <a href="@news.Url()" class="line-clamp-2">@news.Value("title")</a>
+                                            </h3>
+                                            <p class="text line-clamp-4 text-justify">
+                                                @news.Value("description")
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="swiper-case-study-button-prev swiper-button-display">
+                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M28 55C13.0883 55 1 42.9117 1 28C1 13.0883 13.0883 1 28 1C42.9117 1 55 13.0883 55 28C55 42.9117 42.9117 55 28 55Z"
+                            fill="black" fill-opacity="0.15" stroke="white" stroke-opacity="0.6" stroke-width="2"
+                            stroke-miterlimit="10"></path>
+                        <path d="M31.375 17.875L20.125 28L31.375 38.125" stroke="white" stroke-opacity="0.8"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+                <div class="swiper-case-study-button-next swiper-button-display">
+                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M28 55C42.9117 55 55 42.9117 55 28C55 13.0883 42.9117 1 28 1C13.0883 1 1 13.0883 1 28C1 42.9117 13.0883 55 28 55Z"
+                            fill="black" fill-opacity="0.15" stroke="white" stroke-opacity="0.6" stroke-width="2"
+                            stroke-miterlimit="10"></path>
+                        <path d="M24.625 17.875L35.875 28L24.625 38.125" stroke="white" stroke-opacity="0.8"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TinTuc End -->
+
+@section Scripts {
+    <script src="/js/swiper-us.js"></script>
+    <script src="/js/swiper-case-study.js"></script>
+    <script src="/js/eco-system-static.js"></script>
+}

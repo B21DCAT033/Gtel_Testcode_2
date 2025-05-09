@@ -1,0 +1,266 @@
+﻿@using System.Globalization
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<CareerPage>
+@{
+    Layout = "masterPage.cshtml";
+
+    var jobManagement = Umbraco.Content("566f81c9-5c69-4f24-862c-7e5be0c004ef");
+    var jobInfos = jobManagement?.ChildrenOfType("jobPosting")?.OrderByDescending(x => x.Value("expirationDate"));
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/recruitment-page.css">
+}
+
+<input type="hidden" id="hdJobPostingManagementKey" value="@jobManagement?.Key" />
+
+<!-- Banner Start -->
+<div class="section techwix-hero-section-03 gtel-banner-section d-flex align-items-center"
+    style="background-image: url(@(Model.BackgroundImage?.MediaUrl() ?? "/images/gioi-thieu/banner-gt.jpg"))">
+    <div class="container">
+        <div class="hero-content">
+            <h2 class="title wow fadeInDown">@Model.BannerTitle</h2>
+            <h3 class="subtitle wow fadeIn" data-wow-delay="1s">@Model.BannerSubtitle</h3>
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+
+<!-- Why Choose GTEL Start -->
+<div class="section techwix-about-section-03 section-padding recruitment-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- About Content Start -->
+                <div class="about-content-03">
+                    <h2 class="text-uppercase">@(new HtmlString(Model.WhyTitle))</h2>
+                    <div class="about-quote wow fadeInLeft">
+                        <blockquote class="blockquote">
+                            <p>@Model.WhyDescription</p>
+                        </blockquote>
+                    </div>
+                    <!-- About List Start -->
+                    <div class="about-list-02">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="about-list-item-02 wow fadeInLeft">
+                                    <h3 class="title animation-shake">
+                                        <i class="fas fa-arrow-circle-right"></i>
+                                        @Model.WhySubtitle1
+                                    </h3>
+                                    <p>@Model.WhySubDescription1</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="about-list-item-02 wow fadeInRight">
+                                    <h3 class="title animation-shake">
+                                        <i class="fas fa-arrow-circle-right"></i>
+                                        @Model.WhySubtitle2
+                                    </h3>
+                                    <p>@Model.WhySubDescription2</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- About List End -->
+                </div>
+                <!-- About Content End -->
+            </div>
+            <div class="col-lg-6">
+                <!-- About Image Warp Start -->
+                <div class="about-img-warp-3">
+                    <div class="shape-1"></div>
+                    <div class="about-img about-img-big">
+                        <img class="wow fadeInUp" src="@Model.WhyBigImage?.GetCropUrl("whyBigImage")" alt="">
+                    </div>
+                    <div class="about-img about-img-sm animation-moveAround">
+                        <img class="wow fadeInUp" src="@Model.WhySmallImage?.GetCropUrl("whySmallImage")" alt="">
+                    </div>
+                </div>
+                <!-- About Image Warp End -->
+            </div>
+        </div>
+    </div>
+    <div class="shape-5 animation-moveUpDown" style="bottom: 0%;left: 0%; position: absolute; z-index: -1;">
+        <img src="/images/shape/tech-shape-5.png" alt="shape" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+<!-- Why Choose GTEL End -->
+
+<!-- Job Info Start -->
+<div class="section techwix-service-section-02 section-padding"
+    style="background-image: url(/gtel_modern/images/bg/service-bg.jpg);">
+    <div class="container">
+        <!-- Service Wrap Start -->
+        <div class="service-wrap">
+            <div class="section-title text-center">
+                <h2 class="title text-uppercase">@Umbraco.GetDictionaryValue("ViTriTuyenDung")</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="sidebar-widget sidebar-widget-1">
+                        <!-- Widget Search Form Start -->
+                        <form class="search-form">
+                            <div class="row gap-2 gap-sm-0">
+                                <div class="col-sm-6">
+                                    <select id="slLocation" class="form-control me-2">
+                                        <option value="" selected>@Umbraco.GetDictionaryValue("ChonDiaDiemLamViec")</option>
+                                        <option value="hà nội">@Umbraco.GetDictionaryValue("HaNoi")</option>
+                                        <option value="đà nẵng">@Umbraco.GetDictionaryValue("DaNang")</option>
+                                        <option value="hồ chí minh">@Umbraco.GetDictionaryValue("HoChiMinh")</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" id="txtKeyword" class="bg-white" placeholder="@Umbraco.GetDictionaryValue("TimCongViec")">
+                                    <button type="button" id="btnSearch"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Widget Search Form End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Service Content Wrap Start -->
+            <div class="row mt-5">
+                <div class="col-sm-12 tab-item">
+                    <div class="product-items-list px-0">
+                        @if (jobInfos != null && jobInfos.Count() > 0)
+                        {
+                            <div class="swiper-container swiper-recruitment h-auto">
+                                <div class="swiper-wrapper swiper-recruitment-wrapper">
+                                </div>
+                                <div class="techwix-pagination">
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Service Content Wrap End -->
+        </div>
+        <!-- Service Wrap End -->
+    </div>
+</div>
+<!-- Job Info End -->
+
+<!-- GTEL Listen Start -->
+@{
+    var gtelPeople = Model.Value<IEnumerable<BlockListItem>>("gtelPeople");
+}
+@if (gtelPeople != null && gtelPeople.Any())
+{
+    <div class="section techwix-testimonial-section-02 gtel-listen-section section section-common-background section-padding">
+        <div class="container">
+            <div class="testimonial-wrap-02">
+                <h2 class="title text-uppercase text-center mb-5">@(new HtmlString(Model.Title))</h2>
+                <div class="swiper-container testimonial-02-active">
+                    <div class="swiper-wrapper">
+                        @foreach (var person in gtelPeople)
+                        {
+                            var person_content = (GtelPeopleBlock?)person?.Content;
+                            <div class="swiper-slide">
+                                <div class="single-testimonial-02 wow fadeInUpBig">
+                                    <div class="testimonial-thumb animation-moveUpDownInCenterDesktop">
+                                        <img src="@person_content?.Avatar?.GetCropUrl("avatarSmall")" alt="" />
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <div class="illustration position-relative">
+                                            <img src="/gtel_modern/images/testi-icon.png" alt="" />
+                                        </div>
+                                        <p title="@person_content?.Opinion">@person_content?.Opinion</p>
+                                        <span class="name fw-bold">@($"{person_content?.Salutation} {person_content?.FullName}")</span>
+                                        <div class="designation">@person_content?.JobTitle</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!-- GTEL Listen End -->
+
+<!-- Send CV Start -->
+<div class="section techwix-contact-section techwix-contact-section-02 techwix-contact-section-03 send-cv-section section-padding"
+    style="background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(235, 242, 250, 0.6));">
+    <div class="container">
+        <div class="contact-wrap">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="contact-form">
+                        <div class="contact-form-wrap">
+                            <div class="heading-wrap text-center">
+                                <h2>@Umbraco.GetDictionaryValue("NopCV")</h2>
+                                <span>@Umbraco.GetDictionaryValue("NopCVChuThich")</span>
+                            </div>
+                            <form id="formRegister" class="form" enctype="multipart/form-data">
+                                @Html.AntiForgeryToken()
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="single-form">
+                                            <input type="text" name="fullName" placeholder="Họ tên *" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="single-form">
+                                            <input type="text" name="address" placeholder="Địa chỉ" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="single-form">
+                                            <input type="tel" name="telephone" placeholder="Điện thoại *" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="single-form">
+                                            <input type="email" name="email" placeholder="Email *" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="single-form">
+                                            <input type="file" id="attachFile" name="attachFile" placeholder="File" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="single-form">
+                                            <textarea name="message" placeholder="Nội dung (không bắt buộc)"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-btn">
+                                            <button id="btnSendCV" type="button" class="btn">@Umbraco.GetDictionaryValue("GuiDi")</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Send CV End -->
+
+<!-- Hidden Start -->
+<div id="popup-content" class="mfp-popup-content mfp-hide" role="alert">
+    <div class="card">
+        <div class="card-header text-center text-uppercase">@Umbraco.GetDictionaryValue("ThongBao")</div>
+        <div class="card-body">
+            <p class="notification-text text-center"></p>
+        </div>
+        <div class="card-footer text-center">
+            <button type="button" id="btnClosePopup" class="btn">@Umbraco.GetDictionaryValue("Dong")</button>
+        </div>
+    </div>
+</div>
+<!-- Hidden End -->
+
+@section Scripts {
+    <script type="module" src="/js/recruitmentPage.gtel.portal.js"></script>
+}

@@ -1,0 +1,195 @@
+﻿@using System.Globalization
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<CorporateCulturePage>
+@{
+    Layout = "masterPage.cshtml";
+    var enUsCulture = CultureInfo.GetCultureInfo("en-US");
+
+    var numberOfCode = Model.CodeOfConduct?.Count() ?? 0;
+    var halfNumberOfCode = numberOfCode / 2;
+}
+
+<style>
+    .gtel-banner-section {
+        aspect-ratio: unset !important;
+    }
+
+    .gtel-banner-section .hero-content {
+        margin-left: 0 !important;
+    }
+
+    .about-list ul li {
+        text-align: justify;
+    }
+
+    @@media only screen and (min-width: 992px) {
+        .gtel-banner-section {
+            aspect-ratio: 2543 / 760;
+        }
+    }
+</style>
+
+<!-- Banner Start -->
+<div class="section techwix-hero-section-03 gtel-banner-section d-flex align-items-center"
+    style="background-image: url('@(Model.BackgroundImage?.MediaUrl() ?? "/images/gioi-thieu/banner-gt.jpg")');">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-7 order-lg-2">
+                <div class="hero-content">
+                    <h2 class="title">@Model.BannerTitle</h2>
+                    @if (Model.BannerDescription != null && Model.BannerDescription.Count() > 0)
+                    {
+                        var calDelayTime = 1.0;
+                        @foreach(var desc in Model.BannerDescription)
+                        {
+                            <div class="content wow fadeIn" data-wow-delay="@($"{calDelayTime.ToString(enUsCulture)}s")">
+                                @desc
+                            </div>
+                            calDelayTime += 0.5;
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 order-lg-1">
+                <div class="text-center text-lg-end my-3 my-lg-0 wow fadeInLeft">
+                    <img src="@(Model.SmallImage?.MediaUrl() ?? "/images/gioi-thieu/img-gt.png")" style="width: 448px;" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+
+<!-- Skill Start -->
+<div class="section techwix-skill-section-02 techwix-skill-section-03 section-common-background section-padding">
+    <div class="container">
+        <div class="skill-wrap">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Skill Left Start -->
+                    <div>
+                        <div class="section-title text-center">
+                            <h2 class="title text-uppercase">@Umbraco.GetDictionaryValue("BoQuyTacUngXu")</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="about-list wow control-fadeInLeft">
+                                    <ul>
+                                        @if (Model.CodeOfConduct?.Take(halfNumberOfCode) != null
+                                            && Model.CodeOfConduct?.Take(halfNumberOfCode).Count() > 0)
+                                        {
+                                            @foreach (var item in Model.CodeOfConduct?.Take(halfNumberOfCode))
+                                            {
+                                                <li class="animation-shake">
+                                                    <span class="about-icon"><i class="fas fa-check"></i></span>
+                                                    <span class="about-text">@item</span>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="about-list wow control-fadeInRight">
+                                    <ul>
+                                        @if (Model.CodeOfConduct?.Skip(halfNumberOfCode) != null
+                                            && Model.CodeOfConduct?.Skip(halfNumberOfCode).Count() > 0)
+                                        {
+                                            @foreach (var item in Model.CodeOfConduct?.Skip(halfNumberOfCode))
+                                            {
+                                                <li class="animation-shake">
+                                                    <span class="about-icon"><i class="fas fa-check"></i></span>
+                                                    <span class="about-text">@item</span>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Skill Left End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Skill End -->
+
+<!-- About Start -->
+<div class="section techwix-about-section-04 section-padding"
+    style="background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(235, 242, 250, 0.6));">
+    <div class="shape-1"></div>
+    <div class="container">
+        <!-- About Wrapper Start -->
+        <div class="about-wrap">
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- About Content Wrap Start -->
+                    <div class="about-content-wrap">
+                        <div class="section-title">
+                            <h2 class="title text-uppercase">@Umbraco.GetDictionaryValue("KyLuat")</h2>
+                        </div>
+                        <p class="text wow control-fadeInLeft" style="text-align: justify;">
+                            @Model.Discipline
+                        </p>
+                    </div>
+                    <!-- About Content Wrap End -->
+                </div>
+                <div class="col-lg-6">
+                    <!-- About Image Wrap Start -->
+                    <div class="about-img-wrap wow control-fadeInRight">
+                        <div class="about-img about-img-big">
+                            <img src="@(Model.DisciplineImage1?.GetCropUrl("cultureBigImage") ?? "/images/gioi-thieu/kiluat1.jpg?width=410&height=552")" alt="">
+                        </div>
+                        <div class="about-img about-img-sm animation-moveUpDown">
+                            <img src="@(Model.DisciplineImage2?.GetCropUrl("cultureSmallImage") ?? "/images/gioi-thieu/kiluat2.jpg?width=410&height=296")" alt="">
+                        </div>
+                    </div>
+                    <!-- About Image Wrap End -->
+                </div>
+            </div>
+        </div>
+        <!-- About Wrapper End -->
+    </div>
+</div>
+<!-- About End -->
+
+<!-- About Start -->
+<div class="section techwix-about-section-07 section-padding">
+    <div class="shape-1"></div>
+    <div class="container">
+        <!-- About Wrapper Start -->
+        <div class="about-wrap">
+            <div class="row flex-column-reverse flex-lg-row">
+                <div class="col-lg-6">
+                    <!-- About Image Wrap Start -->
+                    <div class="about-img-wrap wow control-fadeIn">
+                        <img class="shape-1" src="/gtel_modern/images/shape/about-shape2.png" alt="">
+                        <div class="about-img">
+                            <img src="@(Model.CreativityImage1?.GetCropUrl("cultureBigImage2") ?? "/images/gioi-thieu/sangtao1.jpg?width=300&height=462")" alt="">
+                        </div>
+                        <div class="about-img about-img-2 animation-moveAround">
+                            <img src="@(Model.CreativityImage2?.GetCropUrl("cultureSmallImage2") ?? "/images/gioi-thieu/sangtao2.jpg?width=300&height=452")" alt="">
+                        </div>
+                    </div>
+                    <!-- About Image Wrap End -->
+                </div>
+                <div class="col-lg-6">
+                    <!-- About Content Wrap Start -->
+                    <div class="about-content-wrap">
+                        <div class="section-title">
+                            <h2 class="title text-uppercase">@Umbraco.GetDictionaryValue("SangTao")</h2>
+                        </div>
+                        <p class="text wow control-fadeInUp" style="text-align: justify">
+                            @Model.Creativity
+                        </p>
+                    </div>
+                    <!-- About Content Wrap End -->
+                </div>
+            </div>
+        </div>
+        <!-- About Wrapper End -->
+    </div>
+</div>
+<!-- About End -->

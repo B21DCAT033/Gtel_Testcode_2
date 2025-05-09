@@ -1,0 +1,229 @@
+﻿@using System.Globalization
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<BusinessActivityPage>
+
+@{
+    Layout = "masterPage.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/business-activity-page.css">
+}
+
+<style>
+    @@media only screen and (min-width: 768px) {
+        .gtel-banner-section {
+            height: 640px;
+        }
+    }
+
+    @@media only screen and (min-width: 992px) {
+        .gtel-banner-section {
+            height: 500px;
+        }
+    }
+
+    @@media only screen and (min-width: 1200px) {
+        .gtel-banner-section {
+            height: 600px;
+        }
+    }
+</style>
+
+@{
+    var enUsCulture = CultureInfo.GetCultureInfo("en-US");
+
+    var companyEstablishmentYear = 2007;
+    var companyEstablishmentTextSuffix = @"năm thành lập và phát triển";
+
+    var service = Model.BusinessActivies?.Where(x => x.Name.Equals("dịch vụ", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+    var serviceBlockList = service?.Value<IEnumerable<BlockListItem>>("content");
+    var serviceBlock = serviceBlockList?.Where(x => x.Content.ContentType.Alias == ListBlock.ModelTypeAlias).FirstOrDefault();
+    var serviceBlockContent = (ListBlock?)serviceBlock?.Content;
+    var serviceBlockContentItems = serviceBlockContent?.Value<IEnumerable<BlockListItem>>("childItem");
+
+    var project = Model.BusinessActivies?.Where(x => x.Name.Equals("dự án", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+    var projectBlockList = project?.Value<IEnumerable<BlockListItem>>("content");
+    var projectBlock = projectBlockList?.Where(x => x.Content.ContentType.Alias == ListBlock.ModelTypeAlias).FirstOrDefault();
+    var projectBlockContent = (ListBlock?)projectBlock?.Content;
+    var projectBlockContentItems = projectBlockContent?.Value<IEnumerable<BlockListItem>>("childItem");
+
+    var research = Model.BusinessActivies?.Where(x => x.Name.Equals("nghiên cứu, sản xuất", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+    var researchBlockList = research?.Value<IEnumerable<BlockListItem>>("content");
+    var researchBlock = researchBlockList?.Where(x => x.Content.ContentType.Alias == ListBlock.ModelTypeAlias).FirstOrDefault();
+    var researchBlockContent = (ListBlock?)researchBlock?.Content;
+    var researchBlockContentItems = researchBlockContent?.Value<IEnumerable<BlockListItem>>("childItem");
+}
+
+<!-- Banner Start -->
+<div class="section techwix-hero-section-03 gtel-banner-section d-flex align-items-center"
+     style="background-image: url('@(Model.BackgroundImage?.MediaUrl() ?? "/images/bg/home_bg.jpg")');">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-7 order-lg-2">
+                <div class="hero-content">
+                    <h2 class="title wow fadeInRight" style="margin-bottom: 20px;">@Model.BannerTitle</h2>
+                    @if (Model.BannerDescription != null && Model.BannerDescription.Count() > 0)
+                    {
+                        var calDelayTime = 1.0;
+                        @foreach (var desc in Model.BannerDescription)
+                        {
+                            <div class="content wow fadeIn" data-wow-delay="@($"{calDelayTime.ToString(enUsCulture)}s")">@desc</div>
+                            calDelayTime += 0.5;
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 order-lg-1">
+                <div class="text-center text-lg-end mt-lg-5 wow fadeInLeft">
+                    <img src="@(Model.SmallImage?.MediaUrl() ?? "/images/gioi-thieu/img-brand.png")" style="width: 448px;" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+<!-- Services Start -->
+<div class="section techwix-about-section-06 section-padding">
+    <div class="shape-1"></div>
+    <div class="container">
+        <!-- Services Wrapper Start -->
+        <div class="about-wrap">
+            <div class="row gap-5 gap-sm-0">
+                <!-- Services Content Wrap Start -->
+                <div class="col-lg-6 order-lg-2">
+                    <div class="about-content-wrap">
+                        <h2 class="title text-center text-lg-start">@service?.Value("title")</h2>
+                        <h4 class="sub-title mt-3 wow fadeInRight">@serviceBlockContent?.Title</h4>
+                        <!-- Services List Wrap Start -->
+                        <div class="about-list-wrap cursor-default">
+                            <ul class="about-list mt-0">
+                                @if (serviceBlockContentItems != null && serviceBlockContentItems.Count() > 0)
+                                {
+                                    var serviceIndex = 1;
+                                    @foreach (var item in serviceBlockContentItems)
+                                    {
+                                        var itemContent = (ListItemBlock)item.Content;
+                                        var timer = (serviceIndex * 0.1).ToString("N1", enUsCulture);
+                                        <li class="wow fadeInUp" data-wow-delay="@(timer)s">
+                                            <i class="fas fa-long-arrow-alt-right"></i>
+                                            <span class="">@itemContent.Title</span>
+                                        </li>
+                                        serviceIndex++;
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <!-- Services List Wrap End -->
+                    </div>
+                </div>
+                <!-- Services Content Wrap End -->
+                <!-- Services Image Start -->
+                <div class="col-lg-6 order-lg-1">
+                    <div class="about-img">
+                        <img class="shape-1" src="/images/shape/about-shape1.png" alt="">
+                        <div class="image d-flex justify-content-center">
+                            <img src="/images/linh-vuc/LV-5.jpg?width=389&height=389" alt="">
+                        </div>
+                    </div>
+                </div>
+                <!-- Services Image End -->
+            </div>
+        </div>
+        <!-- Services Wrapper End -->
+    </div>
+</div>
+<!-- Services End -->
+<!-- Projects Start -->
+<div class="section techwix-service-section-06 section-padding business-activity-page-projects"
+     style="background: linear-gradient(to top, rgba(235, 242, 250, 0.5), rgba(255, 255, 255, 0.3)) top / 100% 50px; background-size: cover;">
+    <div class="container">
+        <div class="service-wrap">
+            <h2 class="text-uppercase text-center">@project?.Value("title")</h2>
+            <div class="service-content-wrap">
+                <div class="row justify-content-center">
+                    @if (projectBlockContentItems != null && projectBlockContentItems.Count() > 0)
+                    {
+                        var indexService = 1;
+                        foreach (var item in projectBlockContentItems)
+                        {
+                            var itemContent = (ListItemBlock)item.Content;
+                            var icon = itemContent.Value<MediaWithCrops>("icon");
+                            var timeService = (indexService * 0.2).ToString("N1", enUsCulture);
+
+                            <div class="col-md-6 col-xl-3 mt-4">
+                                <!-- Service Item Start -->
+                                <div class="service-item service-01 text-center wow fadeIn" data-wow-delay="@(timeService)s">
+                                    <div class="corner"></div>
+                                    <div class="service-item-body">
+                                        <div class="service-img">
+                                            <img src="@icon?.MediaUrl()" alt="">
+                                        </div>
+                                        <div class="service-content">
+                                            <p style="white-space: pre-line;">@itemContent.Title</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Service Item End -->
+                            </div>
+                            indexService++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Projects End -->
+<!-- Research Start -->
+<div class="section techwix-service-section-07 section-padding">
+    <div class="container">
+        <!-- Research Wrap Start -->
+        <div class="service-wrap">
+            <h2 class="text-uppercase text-center">@research?.Value("title")</h2>
+            <div class="service-content-wrap">
+                <div class="row">
+                    <div class="col-lg-6 wow fadeInLeft">
+                        <!-- Experience Wrap Start -->
+                        <div class="experience-wrap">
+                            <img class="shape-1" src="/images/shape/experince-shape2.png" alt="">
+                            <div class="experience" style="background-image: url(/gtel_modern/images/shape/exp-bg2.jpg);">
+                                <h3 class="number">@(DateTime.Now.Year - companyEstablishmentYear)</h3>
+                                <span>@Umbraco.GetDictionaryValue("CompanyEstablishmentTextSuffix")</span>
+                            </div>
+                        </div>
+                        <!-- Experience Wrap End -->
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- Research Content Start -->
+                        <div class="service-content">
+                            <div class="service-list">
+                                <ul>
+                                    @if (researchBlockContentItems != null && researchBlockContentItems.Count() > 0)
+                                    {
+                                        var researchIndex = 1;
+                                        @foreach (var item in researchBlockContentItems)
+                                        {
+                                            var itemContent = (ListItemBlock)item.Content;
+                                            var timer = (researchIndex * 0.2).ToString("N1", enUsCulture);
+                                            <li class="wow fadeIn" data-wow-delay="@(timer)s">
+                                                <span class="service-icon"><i class="fas fa-check"></i></span>
+                                                <span class="service-text">@itemContent.Title</span>
+                                            </li>
+                                            researchIndex++;
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Research Content End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Research Wrap End -->
+    </div>
+</div>
+<!-- Research End -->

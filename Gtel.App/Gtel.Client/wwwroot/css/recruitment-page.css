@@ -1,0 +1,552 @@
+﻿/* #region ---------------- WHY CHOOSE GTEL SECTION ---------------- */
+.gtel-banner-section .hero-content .subtitle {
+    display: none;
+}
+/* #endregion */
+
+/* #region ---------------- WHY CHOOSE GTEL SECTION ---------------- */
+.recruitment-section {
+    position: relative;
+}
+
+.recruitment-section .about-content-03 .about-quote {
+    background-color: #2c90ce;
+    color: #fff;
+}
+
+.recruitment-section .about-content-03 .about-quote .blockquote::before {
+    color: #fff;
+}
+
+.recruitment-section .about-content-03 .about-quote .blockquote:hover::before {
+    animation: swing 1s;
+}
+
+.recruitment-section .about-content-03 .about-list-02 .about-list-item-02 .title i {
+    color: #1974a4;
+}
+
+.recruitment-section .about-content-03 .about-quote .blockquote p {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+.recruitment-section .about-img-warp-3 .shape-1 {
+    left: 30px;
+}
+
+.recruitment-section .shape-5 {
+    display: none;
+}
+
+/* #endregion */
+
+/* #region ---------------- JOB LIST SECTION ---------------- */
+.sidebar-widget .search-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+    background: #fff;
+    color: #484848;
+    border: 1px solid #ced4da;
+}
+
+.sidebar-widget .search-form select {
+    color: #484848;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: 700;
+    height: 50px;
+}
+
+.sidebar-widget .search-form button {
+    top: 77%;
+}
+
+.product-item,
+.product-item .ant-card,
+.product-item .ant-card-body {
+    background: transparent;
+    border-radius: 6px !important;
+    height: 100%;
+    overflow: hidden;
+}
+
+.product-description {
+    height: 184px;
+}
+
+.product-description span {
+    margin-bottom: 10px;
+}
+
+.text-\[\#171717\] {
+    --tw-text-opacity: 1 !important;
+    color: #171717 !important;
+    color: rgba(23, 23, 23, 1 !important) !important;
+}
+
+.text-\[\#27272A\],
+.text-\[\#27272a\] {
+    --tw-text-opacity: 1 !important;
+    color: #27272a !important;
+    color: rgba(39, 39, 42, 1 !important) !important;
+}
+
+[role=button],
+a,
+area,
+button,
+input:not([type=range]),
+label,
+select,
+summary,
+textarea {
+    touch-action: manipulation;
+}
+
+.ant-card.ant-card-bordered {
+    border-color: #b9b9b9 !important;
+}
+
+.ant-card-bordered {
+    border: 1px solid #e8e8e8;
+}
+
+.ant-card {
+    font-feature-settings: "tnum", "tnum";
+    background: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    transition: all .3s;
+}
+
+.border-\[\#B9B9B9\] {
+    --tw-border-opacity: 1 !important;
+    border-color: #b9b9b9 !important;
+    border-color: rgba(185, 185, 185, 1 !important) !important;
+}
+
+.product-item .product-item-card:before {
+    /* background: #0086ce; */
+    background: #c92435;
+    content: "";
+    display: block;
+    height: 200%;
+    left: -165%;
+    position: absolute;
+    top: -242%;
+    transform: rotate(29deg);
+    transform-origin: center center;
+    transition: .4s;
+    width: 180%;
+    z-index: 1;
+}
+
+.ant-card.no-padding .ant-card-body {
+    padding: 0 !important;
+}
+
+.ant-card-body:after,
+.ant-card-body:before {
+    content: "";
+    display: table;
+}
+
+.product-item .product-item-card .product-item-content {
+    border-radius: 6px !important;
+    height: 100%;
+    overflow: hidden;
+    padding: 24px;
+    position: relative;
+    transition: .4s;
+}
+
+.product-item .product-item-card .product-item-content:hover:after {
+    content: "";
+    background-image: url('/images/bg/our-solution-item-white.png');
+    background-position: 50%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.4;
+}
+
+.bg-center {
+    background-position: 50% !important;
+}
+
+.z-10 {
+    z-index: 10 !important;
+}
+
+.product-item .product-item-card:after {
+    border: none;
+    border-right: 24px solid transparent;
+    /* border-top: 24px solid #0079c2; */
+    border-top: 24px solid #c92435;
+    content: "";
+    display: block;
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+    z-index: 100;
+}
+
+.product-item .product-item-card:hover:after {
+    border: none;
+    /* border-bottom: 24px solid #0079c2; */
+    border-bottom: 24px solid #c92435;
+    border-left: 24px solid transparent;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    top: auto;
+    z-index: 2;
+    content: "";
+    display: block;
+    height: 0;
+}
+
+.product-item .product-item-card:hover {
+    border-color: #27272a !important;
+}
+
+.product-item .product-item-card:hover:before {
+    left: -50%;
+    top: -60%;
+}
+
+.product-item .product-item-card:hover * {
+    color: #fff !important;
+}
+
+.ant-card.no-padding .ant-card-body {
+    padding: 0 !important;
+}
+
+.ant-divider {
+    font-feature-settings: "tnum", "tnum";
+    background: #e8e8e8;
+    box-sizing: border-box;
+    color: #484848;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ant-divider,
+.ant-divider-vertical {
+    display: inline-block;
+    height: .9em;
+    margin: 0 8px;
+    position: relative;
+    top: -.06em;
+    vertical-align: middle;
+    width: 1px;
+}
+
+.ant-divider-horizontal {
+    clear: both;
+    display: block;
+    height: 1px;
+    margin: 24px 0;
+    min-width: 100%;
+    width: 100%;
+}
+
+.h-\[68px\] {
+    height: 68px !important;
+}
+
+.mt-auto {
+    margin-top: auto !important;
+}
+
+.-mb-6 {
+    margin-bottom: -1.5rem !important;
+}
+
+.product-item h3 {
+    font-size: 18px;
+    height: 54px;
+}
+
+.swiper-banner-button-prev {
+    left: 0px;
+}
+
+.swiper-banner-button-next {
+    right: 0px;
+}
+
+/* #endregion */
+
+/* #region ---------------- GTEL LISTEN SECTION ---------------- */
+.techwix-testimonial-section-02 {
+    background-color: #fff;
+    background-image: url('/images/bg-gtel/bg-gtel-2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top right;
+}
+
+.gtel-listen-section .swiper-container {
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    z-index: 1;
+}
+
+.gtel-listen-section .single-testimonial-02 .testimonial-thumb img {
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+}
+
+.gtel-listen-section .single-testimonial-02 .testimonial-content .illustration::before,
+.gtel-listen-section .single-testimonial-02 .testimonial-content .illustration::after {
+    /* content: ""; */
+    border: 2px solid #086ad8;
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    -webkit-animation: zoombig 3.25s linear infinite;
+    animation: zoombig 3.25s linear infinite;
+}
+
+.gtel-listen-section .single-testimonial-02 .testimonial-content .illustration::after {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+}
+
+.gtel-listen-section .single-testimonial-02 .testimonial-content p {
+    font-size: 16px;
+    display: -webkit-box !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+.gtel-listen-section .single-testimonial-02 .testimonial-content .name {
+    background-image: -webkit-linear-gradient(right, #c92435, #c92435);
+    background-image: linear-gradient(to left, #c92435, #c92435);
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 0 2px;
+    -webkit-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+}
+
+.gtel-listen-section .single-testimonial-02 .testimonial-thumb {
+    transform: none;
+}
+
+.gtel-listen-section .single-testimonial-02:hover .testimonial-thumb img {
+    -webkit-transform: scale(1.08);
+    -ms-transform: scale(1.08);
+    transform: scale(1.08);
+}
+
+.gtel-listen-section .single-testimonial-02:hover .testimonial-content .name {
+    background-size: 100% 2px;
+    color: #c92435;
+}
+
+.gtel-listen-section .swiper-pagination {
+    margin-top: 50px;
+}
+
+.send-cv-section .btn {
+    background: #e15061;
+}
+/* #endregion */
+
+/* #region ---------------- Send CV SECTION ---------------- */
+.techwix-contact-section .contact-wrap .contact-form .contact-form-wrap .heading-wrap {
+    text-transform: uppercase;
+}
+
+.techwix-contact-section .contact-wrap .contact-form .contact-form-wrap .heading-wrap span {
+    font-weight: 600;
+}
+
+/* #endregion */
+
+
+/* #region --------------- Recruitment detail page --------------- */
+.form-btn .btn {
+    background: #e15061;
+}
+
+.job-description > p:first-child {
+    margin-top: 1rem;
+}
+
+.job-description > p {
+    font-size: 16px;
+    line-height: 30px;
+    text-align: justify;
+}
+
+.job-description ol li {
+    align-items: baseline;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    margin-top: 20px;
+}
+
+.job-description ul > li {
+    display: flex;
+    align-items: baseline;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    margin-top: 20px;
+    font-weight: 400;
+}
+
+    .job-description ul > li:before {
+        content: "\f00c";
+        font-family: "Font Awesome 5 Free", sans-serif;
+        font-weight: 900;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        line-height: 1;
+        margin-right: 8px;
+        color: #c92435 !important;
+    }
+
+.job-description ul ul {
+    padding-left: 20px;
+}
+
+.job-description > ul > li {
+    padding-left: 20px;
+}
+
+.job-description ol ul {
+    padding-left: 2px;
+}
+
+.job-description ol {
+    list-style: decimal;
+    margin-left: 9px;
+}
+
+    .job-description ol > li {
+        font-weight: 500;
+        margin-left: 10px;
+        font-size: 18px;
+    }
+
+.job-description table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+th {
+    text-align: inherit;
+}
+
+.job-description table {
+    margin-top: 30px;
+}
+
+    .job-description table td, .job-description table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .job-description table thead th {
+        vertical-align: middle;
+        border-bottom: 2px solid #dee2e6;
+        background: #c92435;
+        color: #fff;
+    }
+
+    .job-description table tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, .05);
+    }
+/* #endregion --------------- Recruitment detail page --------------- */
+
+@media only screen and (min-width: 576px) {
+    .sidebar-widget .search-form button {
+        top: 50%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .gtel-banner-section .hero-content .subtitle {
+        display: block;
+    }
+
+    .gtel-listen-section .single-testimonial-02 .testimonial-content .illustration {
+        width: fit-content;
+    }
+
+    .gtel-listen-section .single-testimonial-02 .testimonial-content p {
+        height: 96px;
+        -webkit-line-clamp: 3;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .gtel-banner-section .container {
+        max-width: unset;
+    }
+
+    .recruitment-section .shape-5 {
+        display: block;
+        width: 35%;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .gtel-listen-section .single-testimonial-02 .testimonial-content p {
+        height: 160px;
+        -webkit-line-clamp: 5;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .recruitment-section .shape-5 {
+        width: 35%;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    .recruitment-section .shape-5 {
+        width: 35%;
+    }
+}

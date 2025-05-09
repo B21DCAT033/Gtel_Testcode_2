@@ -1,0 +1,184 @@
+﻿@using System.Globalization
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<LibraryPage>
+@{
+    Layout = "masterPage.cshtml";
+
+    var enUsCulture = CultureInfo.GetCultureInfo("en-US");
+
+    var productManagement = Umbraco.Content("0a2cc52b-ddec-4a23-8db0-71dc8132abc3");
+
+    var categoryManagement = Umbraco.Content("4aa63de4-545b-4d42-87af-c5afc8f2273d");
+    var categories = categoryManagement?.ChildrenOfType("category");
+}
+
+<style>
+    .link-button {
+        background: none;
+        border: none;
+        color: blue;
+        /* hoặc màu link của bạn */
+        text-decoration: underline;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: inherit;
+        padding: 0;
+        display: inline;
+        text-align: left;
+    }
+
+    .link-button:hover {
+        text-decoration: none;
+    }
+
+    @@media only screen and (min-width: 992px) {
+        .gtel-banner-section .container {
+            max-width: unset;
+        }
+
+        .single-blog-post.single-blog .blog-content {
+            min-height: 272px;
+        }
+
+        .single-blog-post.single-blog .blog-content .title {
+            font-size: 20px;
+            line-height: 1.35;
+            height: 54px;
+            padding-right: 0;
+        }
+
+        .single-blog-post.single-blog .blog-content .title a {
+            display: -webkit-box !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .single-blog-post.single-blog .blog-content p {
+            min-height: 72px;
+        }
+    }
+
+    @@media only screen and (min-width: 1400px) {
+        .single-blog-post.single-blog .blog-content {
+            min-height: 288px;
+        }
+
+        .single-blog-post.single-blog .blog-content .title {
+            font-size: 24px;
+            line-height: 1.4;
+        }
+    }
+</style>
+
+<input type="hidden" id="hdProductManagementKey" value="@productManagement?.Key" />
+<input type="hidden" id="hdLibraryPageKey" value="@Model.Key" />
+<!-- Banner Start -->
+<div class="section techwix-hero-section-03 gtel-banner-section d-flex align-items-center"
+    style="background-image: url('@(Model.BackgroundImage?.MediaUrl() ?? "/images/gioi-thieu/banner-gt.jpg")')">
+    <div class="container">
+        <div class="hero-content">
+            <h2 class="title">@Model.BannerTitle</h2>
+            @if (Model.BannerDescription != null && Model.BannerDescription.Count() > 0)
+            {
+                var calTimeDelay = 0.5;
+                <div class="d-none d-md-flex justify-content-center justify-content-lg-start">
+                    <div class="content">
+                        @foreach (var desc in Model.BannerDescription)
+                        {
+                            <span class="wow fadeIn" data-wow-delay="@(calTimeDelay.ToString(enUsCulture))s">
+                                @desc
+                            </span>
+                            <br />
+                            calTimeDelay += 0.5;
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+<!-- Blog Standard Start -->
+<div id="product-section" class="section blog-standard-section section-padding">
+    <div class="container">
+        <!-- Blog Standard Wrap Start -->
+        <div class="blog-standard-wrap">
+            <div class="row">
+                <div class="col-lg-9 wow fadeInLeft">
+                    <!-- Blog Post Wrap Start -->
+                    <div class="blog-post-wrap row">
+                    </div>
+                    <!-- Blog Post Wrap Ed -->
+                </div>
+                <div class="col-lg-3 wow fadeInRight">
+                    <!-- Blog Sidebar Start -->
+                    <div class="blog-sidebar">
+                        <!-- Sidebar Widget Start -->
+                        <div class="sidebar-widget sidebar-widget-1">
+                            <!-- Widget Search Form Start -->
+                            <form class="search-form" action="#">
+                                <input type="text" id="txtKeyword" placeholder="@Umbraco.GetDictionaryValue("TuKhoa")">
+                                <button type="button" id="btnSearch"><i class="fas fa-search"></i></button>
+                            </form>
+                            <!-- Widget Search Form End -->
+                        </div>
+                        <!-- Sidebar Widget End -->
+                        <!-- Sidebar Widget Start -->
+                        <div class="sidebar-widget">
+                            <!-- Sidebar Widget Start -->
+                            <div class="sidebar-widget">
+                                <!-- Widget Title Start -->
+                                <div class="widget-title">
+                                    <i class="fa fa-layer-group me-1" style="font-size: 18px;"></i>
+                                    <h3 class="title">@Umbraco.GetDictionaryValue("DichVu")</h3>
+                                </div>
+                                <!-- Widget Title End -->
+                                <!-- Widget Category Start -->
+                                @if (categories != null && categories.Count() > 0)
+                                {
+                                    <ul class="category ms-4">
+                                        <li class="cate-item">
+                                            <a href="javascript:void(0);" id="linkSanPhamNoiBat">
+                                                <i class="flaticon-next"></i>
+                                                @Umbraco.GetDictionaryValue("SanPhamNoiBat")
+                                            </a>
+                                        </li>
+                                        @foreach (var category in categories)
+                                        {
+                                            <li class="cate-item">
+                                                <button type="button" class="link-button"
+                                                    onclick="filterByCategory(event, '@category.Key')">
+                                                    <i class="flaticon-next"></i>
+                                                    @category.Name
+                                                </button>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                <div class="widget-title mt-5">
+                                    <h3 class="title">
+                                        <a href="/thu-vien/tra-cuu-website/">
+                                            <i class="fa fa-globe me-1" style="font-size: 18px;"></i>
+                                            @Umbraco.GetDictionaryValue("TraCuuWebsite")
+                                        </a>
+                                    </h3>
+                                </div>
+                                <!-- Widget Category End -->
+                            </div>
+                            <!-- Sidebar Widget End -->
+                        </div>
+                        <!-- Blog Sidebar End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Standard Wrap End -->
+        </div>
+    </div>
+</div>
+<!-- Blog Standard End -->
+
+@section Scripts {
+    <script type="module" src="/js/libraryPage.gtel.portal.js"></script>
+}
